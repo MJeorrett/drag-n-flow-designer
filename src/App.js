@@ -7,57 +7,39 @@ import createEngine, {
 
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 
+import Tray from './components/Tray';
+
 
 const S = {
+  Container: styled.div`
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  `,
+  Heading: styled.h1`
+    text-align: center;
+  `,
+  Body: styled.div`
+    display: flex;
+    width: 100%;
+    flex-grow: 1;
+  `,
   CanvasWidget: styled(CanvasWidget)`
-    height: 1000px;
     border: 1px solid dodgerblue;
+    width: 100%;
   `,
 };
 
 function App() {
   const engine = createEngine();
   engine.maxNumberPointsPerLink = 0;
-  
+
   const start = new DefaultNodeModel({
     name: 'Start',
     color: 'green',
   });
   start.setPosition(0, 100);
   start.addOutPort('');
-
-  const node1 = new DefaultNodeModel({
-    name: 'Step 1: Personal Information',
-    color: 'rgb(0, 192, 255)',
-  });
-  node1.setPosition(100, 100);
-  node1.addInPort('Prev');
-  node1.addOutPort('Has Children: true');
-  node1.addOutPort('Has Children: false');
-
-  const node2 = new DefaultNodeModel({
-    name: 'Step 2a: Children Verification',
-    color: 'rgb(0,192,255)',
-  });
-  node2.setPosition(350, 100);
-  node2.addInPort('Prev.');
-  node2.addOutPort('Next')
-
-  const node3 = new DefaultNodeModel({
-    name: 'Step 2b: Address Verification',
-    color: 'rgb(0,192,255)',
-  });
-  node3.setPosition(350, 200);
-  node3.addInPort('Prev.');
-  node3.addOutPort('Next');
-
-  const node4 = new DefaultNodeModel({
-    name: 'Step 3: Police Check',
-    color: 'rgb(0,192,255)',
-  });
-  node4.setPosition(550, 100);
-  node4.addInPort('Prev.');
-  node4.addOutPort('Next');
 
   const end = new DefaultNodeModel({
     name: 'Finish',
@@ -67,14 +49,17 @@ function App() {
   end.addInPort('');
 
   const model = new DiagramModel();
-  model.addAll(start, node1, node2, node3, node4, end);
+  model.addAll(start, end);
   engine.setModel(model);
 
   return (
-    <div>
-      <h1>Siccar Storm</h1>
-      <S.CanvasWidget engine={engine} />
-    </div>
+    <S.Container>
+      <S.Heading>Siccar Storm</S.Heading>
+      <S.Body>
+        <Tray />
+        <S.CanvasWidget engine={engine} />
+      </S.Body>
+    </S.Container>
   );
 }
 
