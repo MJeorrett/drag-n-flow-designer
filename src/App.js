@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from '@emotion/styled';
 import createEngine, {
   DefaultNodeModel,
   DiagramModel
@@ -6,7 +7,13 @@ import createEngine, {
 
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 
-import './App.css';
+
+const S = {
+  CanvasWidget: styled(CanvasWidget)`
+    height: 1000px;
+    border: 1px solid dodgerblue;
+  `,
+};
 
 function App() {
   const engine = createEngine();
@@ -66,7 +73,7 @@ function App() {
   return (
     <div>
       <h1>Siccar Storm</h1>
-      <CanvasWidget className="canvas" engine={engine} />
+      <S.CanvasWidget engine={engine} />
     </div>
   );
 }
