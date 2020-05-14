@@ -3,12 +3,14 @@ import styled from '@emotion/styled';
 
 const S = {
   Tray: styled.div`
-  min-width: 200px;
-  height: 100%;
-  background: #eee;
-  flex-grow: 0;
-  flex-shrink: 0;
-`,
+    display: inline-block;
+    min-width: 200px;
+    background: #eee;
+    padding: 0.5em;
+    & > *:not(:last-child) {
+      margin-bottom: 0.5em;
+    }
+  `,
 };
 
 const Tray = ({

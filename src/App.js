@@ -5,9 +5,9 @@ import createEngine, {
   DiagramModel
 } from '@projectstorm/react-diagrams';
 
-import { CanvasWidget } from '@projectstorm/react-canvas-core';
-
 import Tray from './components/Tray';
+import TrayItem from './components/TrayItem';
+import Canvas from './components/Canvas';
 
 
 const S = {
@@ -19,14 +19,10 @@ const S = {
   Heading: styled.h1`
     text-align: center;
   `,
-  Body: styled.div`
-    display: flex;
-    width: 100%;
+  Content: styled.div`
     flex-grow: 1;
-  `,
-  CanvasWidget: styled(CanvasWidget)`
-    border: 1px solid dodgerblue;
-    width: 100%;
+    align-items: stretch;
+    display: flex;
   `,
 };
 
@@ -55,10 +51,13 @@ function App() {
   return (
     <S.Container>
       <S.Heading>Siccar Storm</S.Heading>
-      <S.Body>
-        <Tray />
-        <S.CanvasWidget engine={engine} />
-      </S.Body>
+      <S.Content>
+        <Tray>
+          <TrayItem name="Step" type="step" color="dodgerblue" />
+          <TrayItem name="Finish" type="finish" color="red" />
+        </Tray>
+        <Canvas engine={engine} />
+      </S.Content>
     </S.Container>
   );
 }
