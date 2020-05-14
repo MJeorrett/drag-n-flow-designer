@@ -1,10 +1,10 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { withFormik, Form } from 'formik';
 import { Typography } from '@material-ui/core';
 
 import CustomField from '../CustomField';
 
-import FieldsEditor from './FieldsEditor';
+import FieldsEditor from './FieldsEditorContainer';
 import styled from '@emotion/styled';
 
 const S = {
@@ -23,11 +23,11 @@ const StepEditor = ({
     <>
       <Form>
         <CustomField name="title" label="Title" fullWidth reduxAction={setStepTitle} />
-        <S.FieldsContainer>
-          <Typography variant="h5">Fields</Typography>
-          <FieldsEditor />
-        </S.FieldsContainer>
       </Form>
+      <S.FieldsContainer>
+        <Typography variant="h5">Fields</Typography>
+        <FieldsEditor stepId={stepId} />
+      </S.FieldsContainer>
     </>
   );
 };
