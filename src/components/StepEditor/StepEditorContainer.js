@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 
 import { connect } from 'react-redux';
 
@@ -17,11 +17,19 @@ const mapDispatchToProps = {
 export default connect(
   mapPropsToState,
   mapDispatchToProps,
-)(props => {
-  const { step } = props;
+)(({
+  step,
+  ...props
+}) => {
+  const [cachedStep, setCachedStep] = useState({});
+
   if (!step) {
     return <p>Select a step to edit.</p>
   }
 
-  return <StepEditor {...props} />;
+  if (cachedStep.id !== step.id) {
+    setCachedStep(step);
+  }
+
+  return <StepEditor step={cachedStep} {...props} />;
 });
