@@ -2,13 +2,15 @@ import React from 'react';
 import styled from '@emotion/styled';
 import createEngine, {
   DefaultNodeModel,
-  DiagramModel
+  DiagramModel,
+  DefaultPortModel,
 } from '@projectstorm/react-diagrams';
 
 import Tray from './components/Tray';
 import TrayItem from './components/TrayItem';
 import Canvas from './components/Canvas';
 import StepNodeFactory from './components/StepNodeFactory';
+import SimplePortFactory from './components/SimplePortFactory';
 
 
 const S = {
@@ -31,6 +33,7 @@ function App() {
   const engine = createEngine();
   engine.maxNumberPointsPerLink = 0;
   engine.getNodeFactories().registerFactory(new StepNodeFactory());
+  engine.getPortFactories().registerFactory(new SimplePortFactory('step', () => new DefaultPortModel()));
 
   const start = new DefaultNodeModel({
     name: 'Start',

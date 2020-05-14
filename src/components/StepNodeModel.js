@@ -1,4 +1,6 @@
-import { NodeModel, PortModel } from '@projectstorm/react-diagrams';
+import { NodeModel, PortModelAlignment } from '@projectstorm/react-diagrams';
+
+import StepPortModel from './StepPortModel';
 
 class StepNodeModel extends NodeModel {
   constructor(title) {
@@ -6,12 +8,8 @@ class StepNodeModel extends NodeModel {
       type: 'step',
       title,
     });
-    // this.addPort(new PortModel({
-    //   name: 'next'
-    // }));
-    this.addPort(new PortModel({
-      name: 'prev'
-    }));
+    this.addPort(new StepPortModel('next', PortModelAlignment.RIGHT));
+    this.addPort(new StepPortModel('prev', PortModelAlignment.LEFT));
   }
 }
 

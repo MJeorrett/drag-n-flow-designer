@@ -8,14 +8,16 @@ const S = {
   `,
   Ports: styled.div`
     display: flex;
+    `,
+  Spacer: styled.div`
+    flex-grow: 1;
   `,
-  Port: styled.div`
+  Port: styled.p`
     width: 16px;
     height: 16px;
     z-index: 10;
     background: rgba(0, 0, 0, 0.5);
     cursor: pointer;
-    z-index: 100;
     &:hover {
       background: rgba(0, 0, 0, 1);
     },
@@ -28,14 +30,25 @@ const StepNodeWidget = ({
   size,
 }) => {
   return (
-    <S.Container>
+    <S.Container style={{
+      position: 'relative',
+      width: size,
+      height: size
+    }}>
       <h5>{node.getOptions().title}</h5>
       <S.Ports>
         <PortWidget
           port={node.getPort('prev')}
           engine={engine}
         >
-          <S.Port />
+          <S.Port>prev</S.Port>
+        </PortWidget>
+        <S.Spacer />
+        <PortWidget
+          port={node.getPort('next')}
+          engine={engine}
+        >
+          <S.Port>next</S.Port>
         </PortWidget>
       </S.Ports>
     </S.Container>

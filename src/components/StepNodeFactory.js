@@ -10,7 +10,7 @@ class StepNodeFactory extends AbstractReactFactory {
   }
 
   generateReactWidget = event => (
-    <StepNodeWidget engine={this.engine} size={50} node={event.model} />
+    <StepNodeWidget engine={this.engine} node={event.model} />
   );
 
   generateModel() {
