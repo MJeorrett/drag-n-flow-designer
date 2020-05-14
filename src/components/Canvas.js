@@ -35,7 +35,7 @@ const buildNode = type => {
 }
 
 function useForceUpdate(){
-  const [value, setValue] = useState(0);
+  const [, setValue] = useState(0);
   return () => setValue(value => ++value);
 }
 
