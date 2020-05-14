@@ -18,21 +18,11 @@ const StepEditor = ({
     id: stepId,
   },
   setStepTitle,
-  values: {
-    title,
-  },
 }) => {
-  useEffect(
-    () => {
-      setStepTitle(title);
-    },
-    [setStepTitle, title]
-  );
-
   return (
     <>
       <Form>
-        <CustomField name="title" label="Title" fullWidth />
+        <CustomField name="title" label="Title" fullWidth reduxAction={setStepTitle} />
         <S.FieldsContainer>
           <Typography variant="h5">Fields</Typography>
           <FieldsEditor />
