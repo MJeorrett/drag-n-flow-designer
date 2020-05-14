@@ -8,7 +8,7 @@ const S = {
   Container: styled.div`
     background: white;
     opacity: 0.9;
-    border: 1px solid dodgerblue;
+    border: ${p => p.selected ? '2px solid dodgerblue' : '1px solid black'};
     border-radius: 5px;
   `,
   Title: styled.h4`
@@ -34,11 +34,7 @@ const StepNodeWidget = ({
   size,
 }) => {
   return (
-    <S.Container style={{
-      position: 'relative',
-      width: size,
-      height: size
-    }}>
+    <S.Container selected={node.isSelected()}>
       <S.Title>{node.getOptions().title}</S.Title>
       <S.Ports>
         <PortWidget

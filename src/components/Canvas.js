@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
-import StepNodeModel from './StepNodeModel';
+import * as StepNode from './StepNode';
 
 const S = {
   Container: styled.div`
@@ -19,7 +19,7 @@ const buildNode = type => {
   let node;
   switch (type) {
     case 'step': {
-      node = new StepNodeModel('New Step');
+      node = new StepNode.Model('New Step');
       break;
     }
     case 'finish': {
@@ -49,7 +49,14 @@ const Canvas = ({
     let node = buildNode(type);
     let mousePosition = engine.getRelativeMousePoint(event);
     node.setPosition(mousePosition);
-    engine.getModel().addNode(node);
+    
+    engine
+      .getModel()
+      .addNode(node)
+      .registerListener({
+        eventDidFire: console.log,
+      });
+
     forceUpdate();
   };
 
