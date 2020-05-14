@@ -1,5 +1,15 @@
 import React, { useEffect } from 'react';
-import { withFormik, Form, Field } from 'formik';
+import { withFormik, Form } from 'formik';
+import { Typography } from '@material-ui/core';
+import styled from '@emotion/styled';
+
+import CustomField from '../CustomField';
+
+const S = {
+  Typography: styled(Typography)`
+    margin-top: 1em !important;
+  `,
+};
 
 const StepEditor = ({
   step: {
@@ -19,9 +29,9 @@ const StepEditor = ({
 
   return (
     <>
-      <p>{stepId}</p>
+      <S.Typography variant="h4" align="center">Edit Step</S.Typography>
       <Form>
-        <Field name="title" />
+        <CustomField name="title" label="Title" fullWidth />
       </Form>
     </>
   );
