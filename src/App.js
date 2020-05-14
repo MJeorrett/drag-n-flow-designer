@@ -1,4 +1,5 @@
 import React from 'react';
+import { Provider } from 'react-redux';
 import styled from '@emotion/styled';
 import createEngine, {
   DefaultNodeModel,
@@ -6,12 +7,12 @@ import createEngine, {
   DefaultPortModel,
 } from '@projectstorm/react-diagrams';
 
+import store from './store';
+
 import Tray from './components/Tray';
-import TrayItem from './components/TrayItem';
-import Canvas from './components/Canvas';
+import GraphEditor from './components/GraphEditor';
 import * as StepNode from './components/StepNode';
 import SimplePortFactory from './components/SimplePortFactory';
-
 
 const S = {
   Container: styled.div`
@@ -54,16 +55,15 @@ function App() {
   engine.setModel(model);
 
   return (
-    <S.Container>
-      <S.Heading>Siccar Storm</S.Heading>
-      <S.Content>
-        <Tray>
-          <TrayItem name="Step" type="step" color="dodgerblue" />
-          <TrayItem name="Finish" type="finish" color="red" />
-        </Tray>
-        <Canvas engine={engine} />
-      </S.Content>
-    </S.Container>
+    <Provider store={store}>
+      <S.Container>
+        <S.Heading>Siccar Storm</S.Heading>
+        <S.Content>
+          <Tray />
+          <GraphEditor engine={engine} />
+        </S.Content>
+      </S.Container>
+    </Provider>
   );
 }
 

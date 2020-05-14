@@ -3,7 +3,9 @@ import styled from '@emotion/styled';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
-import * as StepNode from './StepNode';
+import { createNewStep } from '../../models';
+
+import * as StepNode from '../StepNode';
 
 const S = {
   Container: styled.div`
@@ -23,8 +25,8 @@ const buildNode = type => {
       break;
     }
     case 'finish': {
-      node = new DefaultNodeModel('finish', 'red');
-      node.addInPort('prev.');
+      node = new DefaultNodeModel('Finish', 'red');
+      node.addInPort('');
       break;
     }
     default: {
@@ -40,22 +42,39 @@ function useForceUpdate(){
   return () => setValue(value => ++value);
 }
 
-const Canvas = ({
+const GraphEditor = ({
   engine,
+  addStep,
+  toggleSelectedStep,
 }) => {
   const forceUpdate = useForceUpdate();
+
+  const handleStepSelect = ({ entity: { options: { id: stepId } } }) => {
+    toggleSelectedStep(stepId);
+  };
+
+  const handleStepEvent = event => {
+    if (event.function === "selectionChanged") {
+      handleStepSelect(event);
+    }
+  };
+
   const handleDrop = event => {
     const type = event.dataTransfer.getData('node-type');
     let node = buildNode(type);
     let mousePosition = engine.getRelativeMousePoint(event);
     node.setPosition(mousePosition);
     
-    engine
+    const model = engine
       .getModel()
-      .addNode(node)
+      .addNode(node);
+
+    model
       .registerListener({
-        eventDidFire: console.log,
+        eventDidFire: handleStepEvent,
       });
+      
+    addStep(createNewStep(node.options.id, node.options.title));
 
     forceUpdate();
   };
@@ -72,4 +91,4 @@ const Canvas = ({
   );
 };
 
-export default Canvas;
+export default GraphEditor;

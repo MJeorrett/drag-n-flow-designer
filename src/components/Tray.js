@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from '@emotion/styled';
 
+import TrayItem from './TrayItem';
+import StepEditor from './StepEditor';
+
 const S = {
   Tray: styled.div`
     display: inline-block;
@@ -17,7 +20,13 @@ const Tray = ({
   children,
 }) => {
   return (
-    <S.Tray>{children}</S.Tray>
+    <S.Tray>
+      <div>
+        <TrayItem name="Step" type="step" color="dodgerblue" />
+        <TrayItem name="Finish" type="finish" color="red" />
+      </div>
+      <StepEditor />
+    </S.Tray>
   );
 };
 
