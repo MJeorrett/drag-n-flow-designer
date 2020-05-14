@@ -1,5 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
+import debounceAction from './utils/debounceAction';
+
 const slice = createSlice({
   name: 'steps',
   initialState: {
@@ -34,7 +36,9 @@ export const actions = {
   add: step => slice.actions.add({ step }),
   remove: stepId => slice.actions.remove({ stepId }),
   toggleSelected: stepId => slice.actions.toggleSelected({ stepId }),
-  setSelectedStepTitle: newTitle => slice.actions.setSelectedStepTitle({ newTitle }),
+  setSelectedStepTitle: newTitle => debounceAction(
+    slice.actions.setSelectedStepTitle({ newTitle })
+  ),
 };
 
 const selectStepsState = state => state[slice.name];
