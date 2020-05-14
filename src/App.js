@@ -8,6 +8,7 @@ import createEngine, {
 import Tray from './components/Tray';
 import TrayItem from './components/TrayItem';
 import Canvas from './components/Canvas';
+import StepNodeFactory from './components/StepNodeFactory';
 
 
 const S = {
@@ -29,6 +30,7 @@ const S = {
 function App() {
   const engine = createEngine();
   engine.maxNumberPointsPerLink = 0;
+  engine.getNodeFactories().registerFactory(new StepNodeFactory());
 
   const start = new DefaultNodeModel({
     name: 'Start',

@@ -3,6 +3,8 @@ import styled from '@emotion/styled';
 import { CanvasWidget } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
+import StepNodeModel from './StepNodeModel';
+
 const S = {
   Container: styled.div`
   flex-grow: 1;
@@ -17,8 +19,7 @@ const buildNode = type => {
   let node;
   switch (type) {
     case 'step': {
-      node = new DefaultNodeModel('step', 'dodgerblue');
-      node.addOutPort('next');
+      node = new StepNodeModel('New Step');
       break;
     }
     case 'finish': {
