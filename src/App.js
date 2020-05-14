@@ -31,7 +31,9 @@ const S = {
 };
 
 function App() {
-  const engine = createEngine();
+  const engine = createEngine({
+    registerDefaultDeleteItemsAction: false,
+  });
   engine.maxNumberPointsPerLink = 0;
   engine.getNodeFactories().registerFactory(new StepNode.Factory());
   engine.getPortFactories().registerFactory(new SimplePortFactory('step', () => new DefaultPortModel()));
