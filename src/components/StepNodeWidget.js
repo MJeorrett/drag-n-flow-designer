@@ -2,25 +2,29 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 
+import StepPortWidget from './StepPortWidget';
+
 const S = {
   Container: styled.div`
+    background: white;
+    opacity: 0.9;
     border: 1px solid dodgerblue;
+    border-radius: 5px;
+  `,
+  Title: styled.h4`
+    padding: 5px;
+    text-align: center;
   `,
   Ports: styled.div`
     display: flex;
-    `,
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background: darkblue;
+    opacity: 0.9;
+  `,
   Spacer: styled.div`
     flex-grow: 1;
-  `,
-  Port: styled.p`
-    width: 16px;
-    height: 16px;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    &:hover {
-      background: rgba(0, 0, 0, 1);
-    },
+    min-width: 1em;
   `,
 }
 
@@ -35,20 +39,20 @@ const StepNodeWidget = ({
       width: size,
       height: size
     }}>
-      <h5>{node.getOptions().title}</h5>
+      <S.Title>{node.getOptions().title}</S.Title>
       <S.Ports>
         <PortWidget
           port={node.getPort('prev')}
           engine={engine}
         >
-          <S.Port>prev</S.Port>
+          <StepPortWidget type="prev" />
         </PortWidget>
         <S.Spacer />
         <PortWidget
           port={node.getPort('next')}
           engine={engine}
         >
-          <S.Port>next</S.Port>
+          <StepPortWidget type="next" />
         </PortWidget>
       </S.Ports>
     </S.Container>
