@@ -1,18 +1,11 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import styled from '@emotion/styled';
-import createEngine, {
-  DefaultNodeModel,
-  DiagramModel,
-  DefaultPortModel,
-} from '@projectstorm/react-diagrams';
 
 import store from './store';
-
 import Tray from './components/Tray';
 import GraphEditor from './components/GraphEditor';
-import * as StepNode from './components/StepNode';
-import SimplePortFactory from './components/SimplePortFactory';
+import engine from './diagramEngine';
 
 const S = {
   Container: styled.div`
@@ -31,30 +24,7 @@ const S = {
 };
 
 function App() {
-  const engine = createEngine({
-    registerDefaultDeleteItemsAction: false,
-  });
-  engine.maxNumberPointsPerLink = 0;
-  engine.getNodeFactories().registerFactory(new StepNode.Factory());
-  engine.getPortFactories().registerFactory(new SimplePortFactory('step', () => new DefaultPortModel()));
-
-  const start = new DefaultNodeModel({
-    name: 'Start',
-    color: 'green',
-  });
-  start.setPosition(50, 100);
-  start.addOutPort('');
-
-  const end = new DefaultNodeModel({
-    name: 'Finish',
-    color: 'red',
-  });
-  end.setPosition(450, 100);
-  end.addInPort('');
-
-  const model = new DiagramModel();
-  model.addAll(start, end);
-  engine.setModel(model);
+  
 
   return (
     <Provider store={store}>
