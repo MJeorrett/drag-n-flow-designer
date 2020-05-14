@@ -2,7 +2,7 @@ import React from 'react';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 
 import StepNodeModel from './StepNodeModel';
-import StepNodeWidget from './StepNodeWidget';
+import StepNodeWidgetContainer from './StepNodeWidgetContainer';
 
 class StepNodeFactory extends AbstractReactFactory {
   constructor() {
@@ -10,7 +10,7 @@ class StepNodeFactory extends AbstractReactFactory {
   }
 
   generateReactWidget = event => (
-    <StepNodeWidget engine={this.engine} node={event.model} />
+    <StepNodeWidgetContainer engine={this.engine} node={event.model} />
   );
 
   generateModel() {

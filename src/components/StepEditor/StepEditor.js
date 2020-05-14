@@ -1,18 +1,34 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import { withFormik, Form, Field } from 'formik';
 
 const StepEditor = ({
-  step,
+  step: {
+    id: stepId,
+  },
+  setStepTitle,
+  values: {
+    title,
+  },
 }) => {
-  if (!step) {
-    return <p>Select a step to edit.</p>
-  }
-  const { id, title } = step;
+  useEffect(
+    () => {
+      setStepTitle(title);
+    },
+    [setStepTitle, title]
+  );
+
   return (
     <>
-      <h3>{title}</h3>
-      <p>{id}</p>
+      <p>{stepId}</p>
+      <Form>
+        <Field name="title" />
+      </Form>
     </>
   );
 };
 
-export default StepEditor;
+export default withFormik({
+  mapPropsToValues: ({ step: { id, title } }) => ({
+    id, title,
+  }),
+})(StepEditor);

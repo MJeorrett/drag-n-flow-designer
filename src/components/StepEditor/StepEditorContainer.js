@@ -1,6 +1,8 @@
+import React from 'react';
+
 import { connect } from 'react-redux';
 
-import { selectors } from '../../store';
+import { actions, selectors } from '../../store';
 
 import StepEditor from './StepEditor';
 
@@ -8,6 +10,18 @@ const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
 });
 
+const mapDispatchToProps = {
+  setStepTitle: actions.steps.setSelectedStepTitle,
+};
+
 export default connect(
   mapPropsToState,
-)(StepEditor);
+  mapDispatchToProps,
+)(props => {
+  const { step } = props;
+  if (!step) {
+    return <p>Select a step to edit.</p>
+  }
+
+  return <StepEditor {...props} />;
+});

@@ -7,7 +7,7 @@ import StepEditor from './StepEditor';
 const S = {
   Tray: styled.div`
     display: inline-block;
-    min-width: 200px;
+    min-width: 350px;
     background: #eee;
     padding: 0.5em;
     & > *:not(:last-child) {

@@ -40,14 +40,14 @@ function App() {
     name: 'Start',
     color: 'green',
   });
-  start.setPosition(0, 100);
+  start.setPosition(50, 100);
   start.addOutPort('');
 
   const end = new DefaultNodeModel({
     name: 'Finish',
     color: 'red',
   });
-  end.setPosition(750, 100);
+  end.setPosition(450, 100);
   end.addInPort('');
 
   const model = new DiagramModel();

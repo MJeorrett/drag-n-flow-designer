@@ -19,6 +19,9 @@ const slice = createSlice({
     toggleSelected: (state, { payload: { stepId } }) => {
       state.selectedStepId = stepId === state.selectedStepId ? null : stepId;
     },
+    setSelectedStepTitle: (state, { payload: { stepId, newTitle } }) => {
+      state.items[state.selectedStepId].title = newTitle;
+    },
   },
 });
 
@@ -31,13 +34,23 @@ export const actions = {
   add: step => slice.actions.add({ step }),
   remove: stepId => slice.actions.remove({ stepId }),
   toggleSelected: stepId => slice.actions.toggleSelected({ stepId }),
+  setSelectedStepTitle: newTitle => slice.actions.setSelectedStepTitle({ newTitle }),
 };
 
 const selectStepsState = state => state[slice.name];
 
 export const selectors = {
+  selectedStepId: createSelector(
+    selectStepsState,
+    state => state.selectedStepId,
+  ),
   selectedStep: createSelector(
     selectStepsState,
     state => state.items[state.selectedStepId],
+  ),
+  makeSelectStepById: () => createSelector(
+    selectStepsState,
+    (_, stepId) => stepId,
+    (state, stepId) => state.items[stepId],
   ),
 };
