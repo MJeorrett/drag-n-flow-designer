@@ -31,13 +31,12 @@ const S = {
 const StepNodeWidget = ({
   engine,
   node,
-  size,
   step,
   isSelected,
 }) => {
   return (
     <S.Container selected={isSelected}>
-      <S.Title>{step.title}</S.Title>
+      <S.Title>{step.title || '<no title>'}</S.Title>
       <S.Ports>
         <PortWidget
           port={node.getPort('prev')}
