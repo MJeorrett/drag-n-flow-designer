@@ -8,20 +8,23 @@ import StepEditor from './StepEditor';
 
 const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
+  selectedStepId: selectors.steps.selectedStepId(state),
 });
 
 const mapDispatchToProps = {
   setStepTitle: actions.steps.setSelectedStepTitle,
 };
 
-export default connect(
-  mapPropsToState,
-  mapDispatchToProps,
-)(({
+const StepEditorContainer = ({
   step,
+  selectedStepId,
   ...props
 }) => {
   const [cachedStep, setCachedStep] = useState({});
+
+  if (!selectedStepId && cachedStep.id) {
+    setCachedStep({});
+  }
 
   if (!step) {
     return <p>Select a step to edit.</p>
@@ -32,4 +35,9 @@ export default connect(
   }
 
   return <StepEditor step={cachedStep} {...props} />;
-});
+};
+
+export default connect(
+  mapPropsToState,
+  mapDispatchToProps,
+)(StepEditorContainer);
