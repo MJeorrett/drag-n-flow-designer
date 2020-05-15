@@ -73,8 +73,10 @@ const GraphEditor = ({
       .registerListener({
         eventDidFire: handleStepEvent,
       });
-      
-    addStep(createNewStep(node.options.id, node.options.title));
+    
+    const stepId = node.options.id;
+    addStep(createNewStep(stepId, node.options.title));
+    toggleSelectedStep(stepId);
 
     forceUpdate();
   };
