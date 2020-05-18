@@ -67,7 +67,7 @@ const Layout = ({
 }) => {
   return (
     <S.Root>
-      <Typography variant="h3" gutterBottom align="center" color="primary">Siccar Storm</Typography>
+      <Typography variant="h3" gutterBottom align="center" color="primary">Siccar Designer</Typography>
       <S.Content>
         <S.EditorContainer
           isOpen={stepIsOpen}
