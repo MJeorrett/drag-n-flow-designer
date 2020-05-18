@@ -1,8 +1,12 @@
 import { connect } from 'react-redux';
 
-import { actions } from '../../store';
+import { actions, selectors } from '../../store';
 
 import GraphEditor from './GraphEditor';
+
+const mapStateToProps = state => ({
+  stepsCount: selectors.steps.count(state),
+});
 
 const mapDispatchToProps = dispatch => ({
   addStep: step => {
@@ -16,6 +20,6 @@ const mapDispatchToProps = dispatch => ({
 });
 
 export default connect(
-  null,
+  mapStateToProps,
   mapDispatchToProps,
 )(GraphEditor);

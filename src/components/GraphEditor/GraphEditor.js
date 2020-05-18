@@ -20,7 +20,7 @@ const buildNode = type => {
   let node;
   switch (type) {
     case 'step': {
-      node = new StepNode.Model('New Step');
+      node = new StepNode.Model();
       break;
     }
     case 'finish': {
@@ -43,6 +43,7 @@ function useForceUpdate(){
 
 const GraphEditor = ({
   engine,
+  stepsCount,
   addStep,
   toggleSelectedStep,
 }) => {
@@ -74,7 +75,7 @@ const GraphEditor = ({
       });
     
     const stepId = node.options.id;
-    addStep(createNewStep(stepId, node.options.title));
+    addStep(createNewStep(stepId, `New Step ${stepsCount + 1}`));
 
     BaseModel.prototype.setSelected.call(nodeModel, true);
 

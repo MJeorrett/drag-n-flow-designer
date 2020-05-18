@@ -48,6 +48,10 @@ export const actions = {
 const selectStepsState = state => state[slice.name];
 
 export const selectors = {
+  count: createSelector(
+    selectStepsState,
+    state => state.ids.length,
+  ),
   selectedStepId: createSelector(
     selectStepsState,
     state => state.selectedStepId,
