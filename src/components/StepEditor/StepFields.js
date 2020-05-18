@@ -1,18 +1,18 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
-import FieldEditor from './FieldEditor';
+import StepField from './StepField';
 
 const renderFields = fieldIds => (
   fieldIds.map(fieldId => (
-    <FieldEditor
+    <StepField
       key={fieldId}
       fieldId={fieldId}
     />
   ))
 );
 
-const FieldsEditor = ({
+export default ({
   fieldIds,
   addField,
 }) => {
@@ -25,5 +25,3 @@ const FieldsEditor = ({
     </>
   );
 };
-
-export default FieldsEditor;

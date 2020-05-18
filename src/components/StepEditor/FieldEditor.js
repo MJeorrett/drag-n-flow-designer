@@ -1,11 +1,9 @@
 import React from 'react';
 
-const FieldEditor = ({
-  fieldId,
-}) => {
+export default () => {
   return (
-    <li key={fieldId}>{fieldId}</li>
+    <>
+      <h3>Field Editor</h3>
+    </>
   );
 };
-
-export default FieldEditor;

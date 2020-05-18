@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import { actions, selectors } from '../../store';
 import { createNewField } from '../../models';
 
-import FieldsEditor from './FieldsEditor';
+import StepFields from './StepFields';
 
 const mapStateToProps = () => {
   const selectFieldIdsByStepId = selectors.steps.makeSelectFieldIdsByStepId();
@@ -21,4 +21,4 @@ const mapDispatchToProps = (dispatch, { stepId }) => bindActionCreators({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(FieldsEditor);
+)(StepFields);

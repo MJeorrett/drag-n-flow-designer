@@ -1,15 +1,19 @@
 import React from 'react';
 import { withFormik, Form } from 'formik';
 import { Typography } from '@material-ui/core';
+import styled from '@emotion/styled';
 
 import CustomField from '../CustomField';
 
-import FieldsEditor from './FieldsEditorContainer';
-import styled from '@emotion/styled';
+import StepFields from './StepFieldsContainer';
+import FieldEditor from './FieldEditor';
 
 const S = {
   FieldsContainer: styled.div`
     margin-top: 2em;
+  `,
+  FieldEditorContainer: styled.div`
+
   `,
 };
 
@@ -26,8 +30,11 @@ const StepEditor = ({
       </Form>
       <S.FieldsContainer>
         <Typography variant="h5" gutterBottom>Fields</Typography>
-        <FieldsEditor stepId={stepId} />
+        <StepFields stepId={stepId} />
       </S.FieldsContainer>
+      <S.FieldEditorContainer>
+        <FieldEditor />
+      </S.FieldEditorContainer>
     </>
   );
 };
