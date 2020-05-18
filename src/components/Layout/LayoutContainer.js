@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 
-import { selectors } from '../../store';
+import { actions, selectors } from '../../store';
 
 import Layout from './Layout';
 
@@ -9,6 +9,15 @@ const mapStateToProps = state => ({
   fieldIsOpen: !!selectors.fields.selectedFieldId(state),
 });
 
+const mapDispatchToProps = dispatch => ({
+  closeStep: () => {
+    dispatch(actions.steps.setSelected(null));
+    dispatch(actions.fields.setSelectedFieldId(null));
+  },
+  closeField: () => dispatch(actions.fields.setSelectedFieldId(null)),
+});
+
 export default connect(
   mapStateToProps,
+  mapDispatchToProps,
 )(Layout);

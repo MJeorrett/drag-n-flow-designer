@@ -18,6 +18,9 @@ const slice = createSlice({
       state.ids = state.ids.filter(id => id !== stepId);
       delete state.items[stepId];
     },
+    setSelected: (state, { payload: { stepId } }) => {
+      state.selectedStepId = stepId;
+    },
     toggleSelected: (state, { payload: { stepId } }) => {
       state.selectedStepId = stepId === state.selectedStepId ? null : stepId;
     },
@@ -35,6 +38,7 @@ export const {
 export const actions = {
   add: step => slice.actions.add({ step }),
   remove: stepId => slice.actions.remove({ stepId }),
+  setSelected: stepId => slice.actions.setSelected({ stepId }),
   toggleSelected: stepId => slice.actions.toggleSelected({ stepId }),
   setSelectedStepTitle: newTitle => debounceAction(
     slice.actions.setSelectedStepTitle({ newTitle })

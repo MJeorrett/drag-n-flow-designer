@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from '@emotion/styled';
-import { Typography } from '@material-ui/core';
+import { Typography, IconButton } from '@material-ui/core';
+import { ArrowBack } from '@material-ui/icons';
 
 import Tray from '../Tray';
 import GraphEditor from '../GraphEditor';
@@ -18,6 +19,12 @@ const S = {
     height: calc(100% - 72.8px);
     overflow: hidden;
   `,
+  CloseButtonContainer: styled.div`
+    margin: 1rem;
+    position: absolute !important;
+    right: 0;
+    top: 0;
+  `,
   EditorContainer: styled.div`
     background: ${p => p.background};
     border-right: ${p => p.isOpen && !p.dropShadow ? '1px solid darkgrey' : 'none'};
@@ -31,6 +38,7 @@ const S = {
   EditorWrapper: styled.div`
     height: 100%;
     padding: 2rem;
+    position: relative;
     width: 400px;
   `,
   TrayWrapper: styled.div`
@@ -40,14 +48,26 @@ const S = {
   `,
 };
 
+const CloseButton = ({
+  onClick
+}) => (
+  <S.CloseButtonContainer>
+    <IconButton aria-label="close" onClick={onClick}>
+      <ArrowBack fontSize="inherit" />
+    </IconButton>
+  </S.CloseButtonContainer>
+);
+
 const Layout = ({
   engine,
   stepIsOpen,
-  fieldIsOpen
+  fieldIsOpen,
+  closeStep,
+  closeField,
 }) => {
   return (
     <S.Root>
-      <Typography variant="h3" gutterBottom align="center">Siccar Storm</Typography>
+      <Typography variant="h3" gutterBottom align="center" color="primary">Siccar Storm</Typography>
       <S.Content>
         <S.EditorContainer
           isOpen={stepIsOpen}
@@ -56,6 +76,7 @@ const Layout = ({
           dropShadow={fieldIsOpen}
         >
           <S.EditorWrapper>
+            <CloseButton onClick={closeStep} />
             <Typography variant="h3" gutterBottom color="primary">Edit Step</Typography>
             <StepEditor />
           </S.EditorWrapper>
@@ -65,6 +86,7 @@ const Layout = ({
           background="lightblue"
         >
           <S.EditorWrapper>
+            <CloseButton onClick={closeField} />
             <Typography variant="h4" gutterBottom color="primary">Edit Field</Typography>
             <FieldEditor />
           </S.EditorWrapper>
