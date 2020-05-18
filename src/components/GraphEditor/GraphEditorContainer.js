@@ -4,10 +4,13 @@ import { actions } from '../../store';
 
 import GraphEditor from './GraphEditor';
 
-const mapDispatchToProps = {
-  addStep: actions.steps.add,
-  toggleSelectedStep: actions.steps.toggleSelected
-};
+const mapDispatchToProps = dispatch => ({
+  addStep: step => {
+    dispatch(actions.steps.add(step));
+    dispatch(actions.fields.setSelectedFieldId(null));
+  },
+  toggleSelectedStep: stepId => dispatch(actions.steps.toggleSelected(stepId)),
+});
 
 export default connect(
   null,

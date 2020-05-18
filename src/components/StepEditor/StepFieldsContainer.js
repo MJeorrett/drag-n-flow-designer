@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux';
 
 import { actions, selectors } from '../../store';
 import { createNewField } from '../../models';
@@ -14,9 +13,13 @@ const mapStateToProps = () => {
   });
 };
 
-const mapDispatchToProps = (dispatch, { stepId }) => bindActionCreators({
-  addField: () => actions.fields.add(stepId, createNewField()),
-}, dispatch);
+const mapDispatchToProps = (dispatch, { stepId }) => ({
+  addField: () => {
+    const newField = createNewField();
+    dispatch(actions.fields.add(stepId, newField));
+    dispatch(actions.fields.setSelectedFieldId(newField.id));
+  },
+});
 
 export default connect(
   mapStateToProps,

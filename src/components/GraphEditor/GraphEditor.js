@@ -9,10 +9,9 @@ import * as StepNode from '../StepNode';
 
 const S = {
   Container: styled.div`
-  flex-grow: 1;
+    flex-grow: 1;
   `,
   CanvasWidget: styled(CanvasWidget)`
-    border: 1px solid dodgerblue;
     height: 100%;
   `,
 };
