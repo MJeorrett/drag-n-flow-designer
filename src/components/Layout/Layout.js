@@ -15,12 +15,12 @@ const S = {
   Content: styled.div`
     border-top: 1px solid darkgrey;
     display: flex;
-    height: 100%;
+    height: calc(100% - 72.8px);
     overflow: hidden;
   `,
   EditorContainer: styled.div`
     background: ${p => p.background};
-    border-right: ${p => p.isOpen ? '1px solid darkgrey' : 'none'};
+    border-right: ${p => p.isOpen && !p.dropShadow ? '1px solid darkgrey' : 'none'};
     height: 100%;
     overflow: hidden;
     transition: all 500ms ease-in-out;
@@ -30,7 +30,7 @@ const S = {
   `,
   EditorWrapper: styled.div`
     height: 100%;
-    padding: 1rem;
+    padding: 2rem;
     width: 400px;
   `,
   TrayWrapper: styled.div`
