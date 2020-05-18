@@ -25,7 +25,7 @@ const StepEditor = ({
         <CustomField name="title" label="Title" fullWidth reduxAction={setStepTitle} />
       </Form>
       <S.FieldsContainer>
-        <Typography variant="h5">Fields</Typography>
+        <Typography variant="h5" gutterBottom>Fields</Typography>
         <FieldsEditor stepId={stepId} />
       </S.FieldsContainer>
     </>

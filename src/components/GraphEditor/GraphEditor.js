@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { CanvasWidget, BaseEntity, BaseModel } from '@projectstorm/react-canvas-core';
+import { CanvasWidget, BaseModel } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
 import { createNewStep } from '../../models';

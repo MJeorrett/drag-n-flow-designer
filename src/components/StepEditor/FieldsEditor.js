@@ -1,6 +1,17 @@
 import React from 'react';
 import { Button } from '@material-ui/core';
 
+import FieldEditor from './FieldEditor';
+
+const renderFields = fieldIds => (
+  fieldIds.map(fieldId => (
+    <FieldEditor
+      key={fieldId}
+      fieldId={fieldId}
+    />
+  ))
+);
+
 const FieldsEditor = ({
   fieldIds,
   addField,
@@ -8,7 +19,7 @@ const FieldsEditor = ({
   return (
     <>
       <ul>
-        {fieldIds.map(fieldId => <li key={fieldId}>{fieldId}</li>)}
+        {renderFields(fieldIds)}
       </ul>
       <Button type="button" onClick={addField}>Add Field</Button>
     </>
