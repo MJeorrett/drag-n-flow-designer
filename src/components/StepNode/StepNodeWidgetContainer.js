@@ -11,7 +11,7 @@ const mapStateToProps = () => {
     const { id: stepId } = node.getOptions();
     return {
       step: selectStepById(state, stepId),
-      isSelected: selectors.steps.selectedStepId(state) === stepId,
+      isSelected: selectors.steps.selectedStepIds(state).includes(stepId),
     };
   };
 };

@@ -7,7 +7,7 @@ const slice = createSlice({
   initialState: {
     ids: [],
     items: {},
-    selectedStepId: null,
+    selectedStepIds: [],
   },
   reducers: {
     add: (state, { payload: { step } }) => {
@@ -18,14 +18,15 @@ const slice = createSlice({
       state.ids = state.ids.filter(id => id !== stepId);
       delete state.items[stepId];
     },
-    setSelected: (state, { payload: { stepId } }) => {
-      state.selectedStepId = stepId;
+    addSelectedStepId: (state, { payload: { stepId } }) => {
+      if (state.selectedStepIds.includes(stepId)) return;
+      state.selectedStepIds.push(stepId);
     },
-    toggleSelected: (state, { payload: { stepId } }) => {
-      state.selectedStepId = stepId === state.selectedStepId ? null : stepId;
+    removeSelectedStepId: (state, { payload: { stepId } }) => {
+      state.selectedStepIds = state.selectedStepIds.filter(id => id !== stepId);
     },
     setSelectedStepTitle: (state, { payload: { stepId, newTitle } }) => {
-      state.items[state.selectedStepId].title = newTitle;
+      state.items[state.selectedStepIds[0]].title = newTitle;
     },
   },
 });
@@ -38,8 +39,8 @@ export const {
 export const actions = {
   add: step => slice.actions.add({ step }),
   remove: stepId => slice.actions.remove({ stepId }),
-  setSelected: stepId => slice.actions.setSelected({ stepId }),
-  toggleSelected: stepId => slice.actions.toggleSelected({ stepId }),
+  addSelectedStepId: stepId => slice.actions.addSelectedStepId({ stepId }),
+  removeSelectedStepId: stepId => slice.actions.removeSelectedStepId({ stepId }),
   setSelectedStepTitle: newTitle => debounceAction(
     slice.actions.setSelectedStepTitle({ newTitle })
   ),
@@ -52,13 +53,18 @@ export const selectors = {
     selectStepsState,
     state => state.ids.length,
   ),
-  selectedStepId: createSelector(
+  selectedStepIds: createSelector(
     selectStepsState,
-    state => state.selectedStepId,
+    state => state.selectedStepIds,
   ),
   selectedStep: createSelector(
     selectStepsState,
-    state => state.items[state.selectedStepId],
+    state => {
+      if (state.selectedStepIds.length === 0) {
+        return null;
+      }
+      return state.items[state.selectedStepIds[0]];
+    },
   ),
   makeSelectStepById: () => createSelector(
     selectStepsState,

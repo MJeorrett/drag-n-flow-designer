@@ -8,7 +8,7 @@ import StepEditor from './StepEditor';
 
 const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
-  selectedStepId: selectors.steps.selectedStepId(state),
+  selectedStepIds: selectors.steps.selectedStepIds(state),
 });
 
 const mapDispatchToProps = {
@@ -17,13 +17,17 @@ const mapDispatchToProps = {
 
 const StepEditorContainer = ({
   step,
-  selectedStepId,
+  selectedStepIds,
   ...props
 }) => {
   const [cachedStep, setCachedStep] = useState({});
 
-  if (!selectedStepId && cachedStep.id) {
+  if (!selectedStepIds.length === 0 && cachedStep.id) {
     setCachedStep({});
+  }
+
+  if (selectedStepIds.length > 1) {
+    return <p>{selectedStepIds.length} steps selected.</p>
   }
 
   if (!step) {

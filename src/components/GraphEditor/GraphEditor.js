@@ -45,12 +45,22 @@ const GraphEditor = ({
   engine,
   stepsCount,
   addStep,
-  toggleSelectedStep,
+  addSelectedStepId,
+  removeSelectedStepId,
 }) => {
   const forceUpdate = useForceUpdate();
 
-  const handleStepSelect = ({ entity: { options: { id: stepId } } }) => {
-    toggleSelectedStep(stepId);
+  const handleStepSelect = (
+    {
+      entity: { options: { id: stepId } },
+      isSelected,
+    }) => {
+      if (isSelected) {
+        addSelectedStepId(stepId);
+      }
+      else {
+        removeSelectedStepId(stepId);
+      }
   };
 
   const handleStepEvent = event => {

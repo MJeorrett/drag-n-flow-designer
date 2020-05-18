@@ -6,6 +6,7 @@ import GraphEditor from './GraphEditor';
 
 const mapStateToProps = state => ({
   stepsCount: selectors.steps.count(state),
+  selectedStepIds: selectors.steps.selectedStepIds(state),
 });
 
 const mapDispatchToProps = dispatch => ({
@@ -13,8 +14,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.steps.add(step));
     dispatch(actions.fields.setSelectedFieldId(null));
   },
-  toggleSelectedStep: stepId => {
-    dispatch(actions.steps.toggleSelected(stepId));
+  addSelectedStepId: stepId => {
+    dispatch(actions.steps.addSelectedStepId(stepId));
+    dispatch(actions.fields.setSelectedFieldId(null));
+  },
+  removeSelectedStepId: stepId => {
+    dispatch(actions.steps.removeSelectedStepId(stepId));
     dispatch(actions.fields.setSelectedFieldId(null));
   },
 });
