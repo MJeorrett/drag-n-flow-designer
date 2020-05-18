@@ -10,6 +10,7 @@ import * as StepNode from '../StepNode';
 const S = {
   Container: styled.div`
     flex-grow: 1;
+    height: 100%;
   `,
   CanvasWidget: styled(CanvasWidget)`
     height: 100%;

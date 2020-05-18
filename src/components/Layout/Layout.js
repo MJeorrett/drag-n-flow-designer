@@ -10,7 +10,7 @@ import FieldEditor from '../FieldEditor';
 
 const S = {
   Root: styled.div`
-    background: #EEE;
+    background: #eeeeee;
     height: 100%;
   `,
   Content: styled.div`
@@ -57,10 +57,23 @@ const S = {
     transition: all 500ms ease-in-out;
     width: 400px;
   `,
+  GraphEditorWrapper: styled.div`
+      position: relative;
+      width: 100%;
+      height: 100%;
+  `,
   TrayWrapper: styled.div`
+    background: #eeeeee;
+    opacity: 0.9;
     border-right: 1px solid darkgrey;
+    border-bottom: 1px solid darkgrey;
+    border-bottom-right-radius: 4px;
+    left: 0;
     padding: 1rem;
+    position: absolute;
+    top: 0;
     width: 100px;
+    z-index: 1;
   `,
 };
 
@@ -117,10 +130,12 @@ const Layout = ({
             <FieldEditor />
           </S.EditorWrapper>
         </S.FieldEditorContainer>
-        <S.TrayWrapper>
-          <Tray />
-        </S.TrayWrapper>
-        <GraphEditor engine={engine} />
+        <S.GraphEditorWrapper>
+          <S.TrayWrapper>
+            <Tray />
+          </S.TrayWrapper>
+          <GraphEditor engine={engine} />
+        </S.GraphEditorWrapper>
       </S.Content>
     </S.Root>
   );
