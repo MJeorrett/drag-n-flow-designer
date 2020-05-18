@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from '@emotion/styled';
+import { Tooltip } from '@material-ui/core';
 
 const S = {
   TrayItem: styled.div`
@@ -23,13 +24,15 @@ const TrayItem = ({
   };
 
   return (
-    <S.TrayItem
-      draggable="true"
-      color={color}
-      onDragStart={handleDragStart}
-    >
-      {name}
-    </S.TrayItem>
+    <Tooltip title={`Drag onto canvas to create new ${name}.`}>
+      <S.TrayItem
+        draggable="true"
+        color={color}
+        onDragStart={handleDragStart}
+      >
+        {name}
+      </S.TrayItem>
+    </Tooltip>
   );
 };
 
