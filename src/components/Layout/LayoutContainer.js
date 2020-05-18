@@ -5,7 +5,6 @@ import { actions, selectors } from '../../store';
 import Layout from './Layout';
 
 const mapStateToProps = state => ({
-  stepIsOpen: !!selectors.steps.selectedStepId(state),
   fieldIsOpen: !!selectors.fields.selectedFieldId(state),
 });
 
