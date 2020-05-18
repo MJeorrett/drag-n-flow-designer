@@ -33,8 +33,6 @@ const StepEditor = ({
 };
 
 export default withFormik({
-  mapPropsToValues: ({ step: { id, title } }) => ({
-    id, title,
-  }),
+  mapPropsToValues: ({ step }) => step,
   enableReinitialize: true,
 })(StepEditor);
