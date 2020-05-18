@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from '@emotion/styled';
-import { CanvasWidget } from '@projectstorm/react-canvas-core';
+import { CanvasWidget, BaseEntity, BaseModel } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
 import { createNewStep } from '../../models';
@@ -65,18 +65,19 @@ const GraphEditor = ({
     let mousePosition = engine.getRelativeMousePoint(event);
     node.setPosition(mousePosition);
     
-    const model = engine
+    const nodeModel = engine
       .getModel()
       .addNode(node);
 
-    model
+    nodeModel
       .registerListener({
         eventDidFire: handleStepEvent,
       });
     
     const stepId = node.options.id;
     addStep(createNewStep(stepId, node.options.title));
-    toggleSelectedStep(stepId);
+
+    BaseModel.prototype.setSelected.call(nodeModel, true);
 
     forceUpdate();
   };
