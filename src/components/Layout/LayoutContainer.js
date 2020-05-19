@@ -9,11 +9,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeStep: () => {
-    dispatch(actions.steps.setSelected(null));
-    dispatch(actions.fields.setSelectedFieldId(null));
-  },
-  closeField: () => dispatch(actions.fields.setSelectedFieldId(null)),
+  closeField: () => dispatch(actions.fields.setSelectedField(null)),
 });
 
 export default connect(

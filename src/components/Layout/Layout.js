@@ -112,7 +112,6 @@ const CloseButton = ({
 const Layout = ({
   engine,
   fieldIsOpen,
-  closeStep,
   closeField,
 }) => {
   const [stepIsOpen, setStepIsOpen] = useState(true);
