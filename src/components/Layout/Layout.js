@@ -13,6 +13,9 @@ const S = {
     background: #eeeeee;
     height: 100%;
   `,
+  TitleContainer: styled.div`
+    padding: 1.5rem;
+  `,
   Content: styled.div`
     border-top: 1px solid darkgrey;
     display: flex;
@@ -31,29 +34,46 @@ const S = {
   StepEditorContainer: styled.div`
     background: ${p => p.background};
     border-right: ${p => p.dropShadow ? 'none' : '1px solid darkgrey'};
+    box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(100,100,100,0.51)' : 'none'};
+    cursor: ${p => p.isOpen ? 'auto' : 'pointer'};
     height: 100%;
+    min-width: ${p => (p.isOpen ? "400px" : "50px")};
     overflow: hidden;
     position: relative;
     transition: all 500ms ease-in-out;
     width: ${p => (p.isOpen ? "400px" : "50px")};
-    box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(0,0,0,0.51)' : 'none'};
     z-index: ${p => p.zIndex ? p.zIndex : 0};
+  `,
+  StepEditorTitleContainer: styled.div`
+    margin-top: 1.5rem;
+    margin-bottom: 1.5rem;
+    opacity: 0.8;
+    transition: all 500ms ease-in-out;
+    transform: ${p => p.isOpen ? '' : 'translate(-5px, 100px) scale(0.8) rotate(-90deg)'};
+    transform-origin: bottom right;
   `,
   FieldEditorContainer: styled.div`
     background: ${p => p.background};
     border-right: ${p => p.isOpen && !p.dropShadow ? '1px solid darkgrey' : 'none'};
+    box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(0,0,0,0.51)' : 'none'};
     height: 100%;
+    min-width: ${p => (p.isOpen ? "400px" : "0")};
     overflow: hidden;
     position: relative;
     transition: all 500ms ease-in-out;
     width: ${p => (p.isOpen ? "400px" : "0")};
-    box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(0,0,0,0.51)' : 'none'};
     z-index: ${p => p.zIndex ? p.zIndex : 0};
+  `,
+  FieldEditorTitleContainer: styled.div`
+    margin-top: 2rem;
+    margin-bottom: 1.75rem;
+    opacity: 0.85;
   `,
   EditorWrapper: styled.div`
     opacity: ${p => p.isOpen ? 1 : 0};
     height: 100%;
     padding: 2rem;
+    padding-top: 0;
     transition: all 500ms ease-in-out;
     width: 400px;
   `,
@@ -82,12 +102,12 @@ const CloseButton = ({
   isOpen,
   icon
 }) => (
-  <S.CloseButtonContainer isOpen={isOpen}>
-    <IconButton aria-label="close" onClick={onClick}>
-      {icon}
-    </IconButton>
-  </S.CloseButtonContainer>
-);
+    <S.CloseButtonContainer isOpen={isOpen}>
+      <IconButton aria-label="close" onClick={onClick}>
+        {icon}
+      </IconButton>
+    </S.CloseButtonContainer>
+  );
 
 const Layout = ({
   engine,
@@ -96,28 +116,36 @@ const Layout = ({
   closeField,
 }) => {
   const [stepIsOpen, setStepIsOpen] = useState(true);
+  const toggleStepIsOpen = () => setStepIsOpen(!stepIsOpen);
   return (
     <S.Root>
-      <Typography variant="h3" gutterBottom align="center" color="primary">Siccar Designer</Typography>
+      <S.TitleContainer>
+        <Typography variant="h3" align="center" color="primary">Siccar Designer</Typography>
+      </S.TitleContainer>
       <S.Content>
         <S.StepEditorContainer
+          background="#CCCCCC"
+          dropShadow={stepIsOpen && fieldIsOpen}
           isOpen={stepIsOpen}
-          background="lightblue"
+          onClick={stepIsOpen ? null : toggleStepIsOpen}
           zIndex={1}
-          dropShadow={fieldIsOpen}
         >
           <CloseButton
-            onClick={() => setStepIsOpen(!stepIsOpen)}
+            onClick={toggleStepIsOpen}
             isOpen={stepIsOpen}
             icon={<ArrowBack fontSize="inherit" />}
           />
+          <S.StepEditorTitleContainer isOpen={stepIsOpen}>
+            <Typography variant="h3" align="center">
+              Step
+            </Typography>
+          </S.StepEditorTitleContainer>
           <S.EditorWrapper isOpen={stepIsOpen}>
-            <Typography variant="h3" gutterBottom color="primary">Edit Step</Typography>
             <StepEditor />
           </S.EditorWrapper>
         </S.StepEditorContainer>
         <S.FieldEditorContainer
-          isOpen={fieldIsOpen}
+          isOpen={stepIsOpen && fieldIsOpen}
           background="lightblue"
         >
           <CloseButton
@@ -125,8 +153,10 @@ const Layout = ({
             isOpen={true} // TODO: This is a hack, fix it by creating separate components for field and step close buttons.
             icon={<Close fontSize="inherit" />}
           />
-          <S.EditorWrapper isOpen={fieldIsOpen}>
-            <Typography variant="h4" gutterBottom color="primary">Edit Field</Typography>
+          <S.FieldEditorTitleContainer>
+            <Typography variant="h4" align="center" gutterBottom>Field</Typography>
+          </S.FieldEditorTitleContainer>
+          <S.EditorWrapper isOpen={stepIsOpen && fieldIsOpen}>
             <FieldEditor />
           </S.EditorWrapper>
         </S.FieldEditorContainer>
