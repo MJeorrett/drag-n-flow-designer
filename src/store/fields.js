@@ -16,6 +16,9 @@ const slice = createSlice({
     setLabel: (state, { payload: { fieldId, newLabel } }) => {
       state.items[fieldId].label = newLabel;
     },
+    setType: (state, { payload: { fieldId, newType } }) => {
+      state.items[fieldId].type = newType;
+    },
   },
 });
 
@@ -30,6 +33,7 @@ export const actions = {
   setLabel: (fieldId, newLabel) => debounceAction(
     slice.actions.setLabel({ fieldId, newLabel })
   ),
+  setType: (fieldId, newType) => slice.actions.setType({ fieldId, newType }),
 };
 
 const selectFieldsState = state => state[slice.name];

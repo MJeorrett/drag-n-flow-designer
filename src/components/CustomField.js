@@ -1,5 +1,7 @@
-import React from 'react';
+/** @jsx jsx */
+
 import { TextField } from '@material-ui/core';
+import { css, jsx } from '@emotion/core';
 
 import CustomInput from './CustomInput';
 
@@ -10,7 +12,12 @@ const CustomField = ({
     <CustomInput
       {...props}
       render={renderProps => (
-        <TextField {...renderProps} />
+        <TextField
+          css={css`
+            width: 100%;
+          `}
+          {...renderProps}
+        />
       )}
     />
   );

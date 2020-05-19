@@ -5,3 +5,10 @@ export const createNewField = label => ({
   label,
   type: '',
 });
+
+
+export const fieldTypes = {
+  slt: "Single Line Text",
+  number: "Number",
+  checkbox: "Checkbox",
+};

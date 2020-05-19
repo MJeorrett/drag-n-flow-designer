@@ -12,6 +12,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = {
   setFieldLabel: actions.fields.setLabel,
+  setFieldType: actions.fields.setType,
 };
 
 const FieldEditorContainer = ({
