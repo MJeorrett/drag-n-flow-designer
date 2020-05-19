@@ -26,10 +26,11 @@ const slice = createSlice({
 export const {
   name,
   reducer,
+  actions: internalActions,
 } = slice;
 
 export const actions = {
-  add: step => slice.actions.add({ step }),
+  add: (step, branchCondition) => slice.actions.add({ step, branchCondition }),
   remove: stepId => slice.actions.remove({ stepId }),
   setTitle: (stepId, newTitle) => debounceAction(
     slice.actions.setTitle({ stepId, newTitle })

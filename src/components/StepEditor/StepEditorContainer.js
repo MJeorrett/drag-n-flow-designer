@@ -9,10 +9,12 @@ import StepEditor from './StepEditor';
 const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
   selectedStepIds: selectors.selection.selectedStepIds(state),
+  branchCondition: selectors.branchConditions.selectedStepBranchCondition(state),
 });
 
 const mapDispatchToProps = {
   setStepTitle: actions.steps.setTitle,
+  setBranchConditionType: actions.branchConditions.setType,
 };
 
 const StepEditorContainer = ({

@@ -10,8 +10,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = dispatch => ({
-  addStep: step => {
-    dispatch(actions.steps.add(step));
+  addStep: (step, branchCondition) => {
+    dispatch(actions.steps.add(step, branchCondition));
     dispatch(actions.selection.setSelectedFieldId(null));
     dispatch(actions.selection.setStepEditorIsOpen(step.id));
   },

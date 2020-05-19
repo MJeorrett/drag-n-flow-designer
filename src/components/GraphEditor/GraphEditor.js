@@ -3,7 +3,7 @@ import styled from '@emotion/styled';
 import { CanvasWidget, BaseModel } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
-import { createNewStep } from '../../models';
+import { createNewStep, createNewBranchCondition } from '../../models';
 
 import * as StepNode from '../StepNode';
 
@@ -90,7 +90,8 @@ const GraphEditor = ({
         });
       
       const stepId = node.options.id;
-      addStep(createNewStep(stepId, `New Step ${stepsCount + 1}`));
+      const newStep = createNewStep(stepId, `New Step ${stepsCount + 1}`);
+      addStep(newStep, createNewBranchCondition());
   
       engine.getModel().clearSelection();
       BaseModel.prototype.setSelected.call(nodeModel, true);
