@@ -13,19 +13,50 @@ import StepFields from './StepFieldsContainer';
 const S = {
   Root: styled.div`
     & > *:not(:last-child) {
-      margin-bottom: 1rem;
+      margin-bottom: 2rem;
     }
   `,
+  Section: styled.div`
+  & > *:not(:last-child) {
+    margin-bottom: 1rem;
+  },
+`,
 };
 
 const StepEditor = ({
   step: {
     id: stepId,
   },
+  fields,
   branchCondition,
   setStepTitle,
   setBranchConditionType,
+  setBranchConditionFieldId,
 }) => {
+  const branchConditionFieldOptions = fields
+    .filter(field => field.type === 'checkbox')
+    .map(field => ({
+      value: field.id,
+      label: field.label,
+    }));
+    
+  const renderBranchConditionFieldOptions = () => {
+    if (branchConditionFieldOptions.length === 0) {
+      return (
+        <Typography variant="body">Please create a checkbox field.</Typography>
+      );
+    }
+
+    return (
+      <CustomDropdown
+        name="branchConditionFieldId"
+        label="Branch Condition Field"
+        reduxAction={value => setBranchConditionFieldId(stepId, value)}
+        options={branchConditionFieldOptions}
+      />
+    );
+  }
+
   return (
     <S.Root>
       <Form>
@@ -35,19 +66,24 @@ const StepEditor = ({
           reduxAction={value => setStepTitle(stepId, value)}
         />
       </Form>
-      <div>
-        <Typography variant="h5" gutterBottom>Fields</Typography>
+      <S.Section>
+        <Typography variant="h5">Fields</Typography>
         <StepFields stepId={stepId} />
-      </div>
-      <CustomDropdown
-        name="branchConditionType"
-        label="Branch Condition Type"
-        reduxAction={value => setBranchConditionType(stepId, value)}
-        options={Object.keys(stepBranchConditionTypes).map(key => ({
-          value: key,
-          label: stepBranchConditionTypes[key],
-        }))}
-      />
+      </S.Section>
+      <S.Section>
+        <CustomDropdown
+          name="branchConditionType"
+          label="Branch Condition Type"
+          reduxAction={value => setBranchConditionType(stepId, value)}
+          options={Object.keys(stepBranchConditionTypes).map(key => ({
+            value: key,
+            label: stepBranchConditionTypes[key],
+          }))}
+        />
+        {
+          branchCondition.type === "field" && renderBranchConditionFieldOptions()
+        }
+      </S.Section>
     </S.Root>
   );
 };
@@ -56,6 +92,7 @@ export default withFormik({
   mapPropsToValues: ({ step, branchCondition }) => ({
     ...step,
     branchConditionType: branchCondition.type,
+    branchConditionFieldId: branchCondition.fieldId,
   }),
   enableReinitialize: true,
 })(StepEditor);

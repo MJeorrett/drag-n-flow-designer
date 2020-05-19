@@ -8,6 +8,7 @@ import StepEditor from './StepEditor';
 
 const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
+  fields: selectors.steps.selectedStepFields(state),
   selectedStepIds: selectors.selection.selectedStepIds(state),
   branchCondition: selectors.branchConditions.selectedStepBranchCondition(state),
 });
@@ -15,6 +16,7 @@ const mapPropsToState = state => ({
 const mapDispatchToProps = {
   setStepTitle: actions.steps.setTitle,
   setBranchConditionType: actions.branchConditions.setType,
+  setBranchConditionFieldId: actions.branchConditions.setFieldId,
 };
 
 const StepEditorContainer = ({

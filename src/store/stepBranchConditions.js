@@ -13,6 +13,9 @@ const slice = createSlice({
     setType: (state, { payload: { stepId, newType } }) => {
       state.items[stepId].type = newType;
     },
+    setFieldId: (state, { payload: { stepId, newFieldId } }) => {
+      state.items[stepId].fieldId = newFieldId;
+    }
   },
   extraReducers: {
     [stepActions.add]: (state, { payload: { step, branchCondition } }) => {
@@ -29,6 +32,7 @@ export const {
 
 export const actions = {
   setType: (stepId, newType) => slice.actions.setType({ stepId, newType }),
+  setFieldId: (stepId, newFieldId) => slice.actions.setFieldId({ stepId, newFieldId }),
 };
 
 const selectStepBranchConditionsState = state => state[slice.name];

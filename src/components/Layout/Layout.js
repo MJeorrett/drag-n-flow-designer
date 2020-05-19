@@ -16,7 +16,7 @@ const S = {
     flex-direction: column;
   `,
   TitleContainer: styled.div`
-    padding: 1.5rem;
+    padding: 0.5rem;
   `,
   Content: styled.div`
     border-top: 1px solid darkgrey;
@@ -38,9 +38,9 @@ const S = {
     border-right: ${p => p.dropShadow ? 'none' : '1px solid darkgrey'};
     box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(100,100,100,0.51)' : 'none'};
     cursor: ${p => p.isOpen ? 'auto' : 'pointer'};
-    height: 100%;
     min-width: ${p => (p.isOpen ? "400px" : "50px")};
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: ${p => p.isOpen ? 'scroll' : 'hidden'};
     position: relative;
     transition: all 500ms ease-in-out;
     width: ${p => (p.isOpen ? "400px" : "50px")};
@@ -58,9 +58,9 @@ const S = {
     background: ${p => p.background};
     border-right: ${p => p.isOpen && !p.dropShadow ? '1px solid darkgrey' : 'none'};
     box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(0,0,0,0.51)' : 'none'};
-    height: 100%;
     min-width: ${p => (p.isOpen ? "400px" : "0")};
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: ${p => p.isOpen ? 'scroll' : 'hidden'};
     position: relative;
     transition: all 500ms ease-in-out;
     width: ${p => (p.isOpen ? "400px" : "0")};
@@ -73,7 +73,6 @@ const S = {
   `,
   EditorWrapper: styled.div`
     opacity: ${p => p.isOpen ? 1 : 0};
-    height: 100%;
     padding: 2rem;
     padding-top: 0;
     transition: all 500ms ease-in-out;

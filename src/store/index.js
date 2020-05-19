@@ -5,7 +5,7 @@ import * as selectionSlice from './selection';
 import * as stepsSlice from './steps';
 import * as stepBranchConditionsSlice from './stepBranchConditions';
 import * as fieldsSlice from './fields';
-import * as stepFields from './stepFields';
+import * as stepFieldsSlice from './stepFields';
 
 const store = configureStore({
   reducer: {
@@ -13,7 +13,7 @@ const store = configureStore({
     [stepsSlice.name]: stepsSlice.reducer,
     [stepBranchConditionsSlice.name]: stepBranchConditionsSlice.reducer,
     [fieldsSlice.name]: fieldsSlice.reducer,
-    [stepFields.name]: stepFields.reducer,
+    [stepFieldsSlice.name]: stepFieldsSlice.reducer,
   },
   middleware: [
     ...getDefaultMiddleware(),
@@ -28,15 +28,26 @@ export const actions = {
   fields: fieldsSlice.actions,
 };
 
+const selecteSelectedStepFieldIds = createSelector(
+  state => state,
+  selectionSlice.selectors.selectedStepId,
+  stepFieldsSlice.selectors.makeSelectFieldIdsByStepId(),
+);
+
 const composedStepSelectors = {
   selectedStep: createSelector(
     state => state,
     selectionSlice.selectors.selectedStepId,
     stepsSlice.selectors.makeSelectStepById(),
   ),
+  selectedStepFields: createSelector(
+    state => state,
+    selecteSelectedStepFieldIds,
+    fieldsSlice.selectors.makeSelectFieldsByIds(),
+  ),
   makeSelectFieldsByStepId: () => createSelector(
     state => state,
-    stepFields.selectors.makeSelectFieldIdsByStepId(),
+    stepFieldsSlice.selectors.makeSelectFieldIdsByStepId(),
     fieldsSlice.selectors.makeSelectFieldsByIds(),
   ),
 };
@@ -60,7 +71,7 @@ const composedFieldSelectors = {
 export const selectors = {
   steps: {
     ...stepsSlice.selectors,
-    ...stepFields.selectors,
+    ...stepFieldsSlice.selectors,
     ...composedStepSelectors,
   },
   branchConditions: {
