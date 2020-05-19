@@ -5,6 +5,8 @@ const slice = createSlice({
   initialState: {
     selectedStepIds: [],
     selectedFieldId: null,
+    stepEditorIsOpen: false,
+    fieldEditorIsOpen: false,
   },
   reducers: {
     addSelectedStepId: (state, { payload: { stepId } }) => {
@@ -17,6 +19,12 @@ const slice = createSlice({
     setSelectedFieldId: (state, { payload: { fieldId } }) => {
       state.selectedFieldId = fieldId;
     },
+    setStepEditorIsOpen: (state, { payload: { newState } }) => {
+      state.stepEditorIsOpen = newState;
+    },
+    setFieldEditorIsOpen: (state, { payload: { newState } }) => {
+      state.fieldEditorIsOpen = newState;
+    }
   },
 });
 
@@ -29,6 +37,8 @@ export const actions = {
   addSelectedStepId: stepId => slice.actions.addSelectedStepId({ stepId }),
   removeSelectedStepId: stepId => slice.actions.removeSelectedStepId({ stepId }),
   setSelectedFieldId: fieldId => slice.actions.setSelectedFieldId({ fieldId }),
+  setStepEditorIsOpen: newState => slice.actions.setStepEditorIsOpen({ newState }),
+  setFieldEditorIsOpen: newState => slice.actions.setFieldEditorIsOpen({ newState }),
 };
 
 const selectSelectionState = state => state[slice.name];
@@ -49,5 +59,13 @@ export const selectors = {
   selectedFieldId: createSelector(
     selectSelectionState,
     state => state.selectedFieldId,
+  ),
+  stepEditorIsOpen: createSelector(
+    selectSelectionState,
+    state => state.stepEditorIsOpen,
+  ),
+  fieldEditorIsOpen: createSelector(
+    selectSelectionState,
+    state => state.fieldEditorIsOpen,
   ),
 };

@@ -17,9 +17,13 @@ const mapDispatchToProps = (dispatch, { stepId }) => ({
   addField: () => {
     const newField = createNewField();
     dispatch(actions.fields.add(stepId, newField));
-    dispatch(actions.fields.setSelectedField(newField.id));
+    dispatch(actions.selection.setSelectedFieldId(newField.id));
+    dispatch(actions.selection.setFieldEditorIsOpen(true));
   },
-  setSelectedField: fieldId => dispatch(actions.fields.setSelectedField(fieldId)),
+  setSelectedField: fieldId => {
+    dispatch(actions.selection.setSelectedFieldId(fieldId));
+    dispatch(actions.selection.setFieldEditorIsOpen(true));
+  },
 });
 
 export default connect(

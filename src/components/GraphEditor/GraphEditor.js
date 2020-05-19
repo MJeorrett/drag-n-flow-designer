@@ -45,9 +45,11 @@ function useForceUpdate(){
 const GraphEditor = ({
   engine,
   stepsCount,
+  selectedStepIds,
   addStep,
   addSelectedStepId,
   removeSelectedStepId,
+  closeFieldEditor,
 }) => {
   const forceUpdate = useForceUpdate();
 
@@ -61,6 +63,7 @@ const GraphEditor = ({
       }
       else {
         removeSelectedStepId(stepId);
+        closeFieldEditor();
       }
   };
 

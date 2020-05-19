@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { Typography, IconButton } from '@material-ui/core';
 import { ArrowBack, Close } from '@material-ui/icons';
@@ -111,10 +111,12 @@ const CloseButton = ({
 
 const Layout = ({
   engine,
+  stepIsOpen,
   fieldIsOpen,
+  selectedStepIds,
+  setStepIsOpen,
   closeField,
 }) => {
-  const [stepIsOpen, setStepIsOpen] = useState(true);
   const toggleStepIsOpen = () => setStepIsOpen(!stepIsOpen);
   return (
     <S.Root>

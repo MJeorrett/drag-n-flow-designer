@@ -5,11 +5,14 @@ import { actions, selectors } from '../../store';
 import Layout from './Layout';
 
 const mapStateToProps = state => ({
-  fieldIsOpen: !!selectors.fields.selectedFieldId(state),
+  stepIsOpen: selectors.selection.stepEditorIsOpen(state),
+  fieldIsOpen: selectors.selection.fieldEditorIsOpen(state),
+  selectedStepIds: selectors.selection.selectedStepIds(state),
 });
 
 const mapDispatchToProps = dispatch => ({
-  closeField: () => dispatch(actions.fields.setSelectedField(null)),
+  setStepIsOpen: newState => dispatch(actions.selection.setStepEditorIsOpen(newState)),
+  closeField: () => dispatch(actions.selection.setFieldEditorIsOpen(false)),
 });
 
 export default connect(

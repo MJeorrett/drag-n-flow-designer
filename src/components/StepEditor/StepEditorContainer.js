@@ -8,7 +8,7 @@ import StepEditor from './StepEditor';
 
 const mapPropsToState = state => ({
   step: selectors.steps.selectedStep(state),
-  selectedStepIds: selectors.steps.selectedStepIds(state),
+  selectedStepIds: selectors.selection.selectedStepIds(state),
 });
 
 const mapDispatchToProps = {

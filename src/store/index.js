@@ -20,32 +20,27 @@ const store = configureStore({
 });
 
 export const actions = {
-  steps: {
-    ...stepsSlice.actions,
-    addStepToSelection: selectionSlice.actions.addSelectedStepId,
-    removeStepFromSelection: selectionSlice.actions.removeSelectedStepId,
-  },
-  fields: {
-    ...fieldsSlice.actions,
-    setSelectedField: selectionSlice.actions.setSelectedFieldId,
-  },
+  selection: selectionSlice.actions,
+  steps: stepsSlice.actions,
+  fields: fieldsSlice.actions,
+};
+
+const composedStepSelectors = {
+  selectedStep: createSelector(
+    state => state,
+    selectionSlice.selectors.selectedStepId,
+    stepsSlice.selectors.makeSelectStepById(),
+  ),
 };
 
 export const selectors = {
   steps: {
     ...stepsSlice.selectors,
     ...stepFields.selectors,
-    selectedStepIds: selectionSlice.selectors.selectedStepIds,
-    selectedStep: createSelector(
-      state => state,
-      selectionSlice.selectors.selectedStepId,
-      stepsSlice.selectors.makeSelectStepById(),
-    ),
+    ...composedStepSelectors,
   },
-  fields: {
-    ...fieldsSlice.selectors,
-    selectedFieldId: selectionSlice.selectors.selectedFieldId,
-  },
+  fields: fieldsSlice.selectors,
+  selection: selectionSlice.selectors,
 };
 
 export default store;
