@@ -49,7 +49,7 @@ const S = {
     margin-bottom: 1.5rem;
     opacity: 0.8;
     transition: all 500ms ease-in-out;
-    transform: ${p => p.isOpen ? '' : 'translate(-5px, 100px) scale(0.8) rotate(-90deg)'};
+    transform: ${p => p.isOpen ? '' : 'translate(-5px, 30px) scale(0.8) rotate(-90deg)'};
     transform-origin: bottom right;
   `,
   FieldEditorContainer: styled.div`
