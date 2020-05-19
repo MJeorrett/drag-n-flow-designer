@@ -89,6 +89,7 @@ const GraphEditor = ({
       const stepId = node.options.id;
       addStep(createNewStep(stepId, `New Step ${stepsCount + 1}`));
   
+      engine.getModel().clearSelection();
       BaseModel.prototype.setSelected.call(nodeModel, true);
     }
 
