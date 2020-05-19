@@ -12,15 +12,15 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   addStep: step => {
     dispatch(actions.steps.add(step));
-    dispatch(actions.fields.setSelectedFieldId(null));
+    dispatch(actions.fields.setSelectedField(null));
   },
   addSelectedStepId: stepId => {
-    dispatch(actions.steps.addSelectedStepId(stepId));
-    dispatch(actions.fields.setSelectedFieldId(null));
+    dispatch(actions.steps.addStepToSelection(stepId));
+    dispatch(actions.fields.setSelectedField(null));
   },
   removeSelectedStepId: stepId => {
-    dispatch(actions.steps.removeSelectedStepId(stepId));
-    dispatch(actions.fields.setSelectedFieldId(null));
+    dispatch(actions.steps.removeStepFromSelection(stepId));
+    dispatch(actions.fields.setSelectedField(null));
   },
 });
 

@@ -4,14 +4,14 @@ import { Button, List, ListItem } from '@material-ui/core';
 export default ({
   fieldIds,
   addField,
-  setSelectedFieldId
+  setSelectedField
 }) => {
   const renderFields = fieldIds => (
     fieldIds.map(fieldId => (
       <ListItem
         button
         key={fieldId}
-        onClick={() => setSelectedFieldId(fieldId)}
+        onClick={() => setSelectedField(fieldId)}
       >
         {fieldId}
       </ListItem>

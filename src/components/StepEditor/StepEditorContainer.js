@@ -12,7 +12,7 @@ const mapPropsToState = state => ({
 });
 
 const mapDispatchToProps = {
-  setStepTitle: actions.steps.setSelectedStepTitle,
+  setStepTitle: actions.steps.setStepTitle,
 };
 
 const StepEditorContainer = ({
