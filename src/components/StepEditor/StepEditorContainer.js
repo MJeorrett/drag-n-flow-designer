@@ -22,7 +22,7 @@ const StepEditorContainer = ({
 }) => {
   const [cachedStep, setCachedStep] = useState({});
 
-  if (!selectedStepIds.length === 0 && cachedStep.id) {
+  if (selectedStepIds.length !== 1 && cachedStep.id) {
     setCachedStep({});
   }
 
