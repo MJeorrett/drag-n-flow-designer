@@ -12,6 +12,8 @@ const S = {
   Root: styled.div`
     background: #eeeeee;
     height: 100%;
+    display: flex;
+    flex-direction: column;
   `,
   TitleContainer: styled.div`
     padding: 1.5rem;
@@ -19,7 +21,7 @@ const S = {
   Content: styled.div`
     border-top: 1px solid darkgrey;
     display: flex;
-    height: calc(100% - 72.8px);
+    flex-grow: 1;
     overflow: hidden;
   `,
   CloseButtonContainer: styled.div`
