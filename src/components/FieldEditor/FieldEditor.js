@@ -1,11 +1,25 @@
 import React from 'react';
+import { withFormik } from 'formik';
+import CustomField from '../CustomField';
 
-export default ({
-  selectedFieldId,
+const FieldEditor = ({
+  field: {
+    id: fieldId
+  },
+  setFieldLabel,
 }) => {
   return (
     <>
-      <p>Id: {selectedFieldId}</p>
+      <CustomField
+        name="label"
+        label="Label"
+        reduxAction={value => setFieldLabel(fieldId, value)}
+      />
     </>
   );
 };
+
+export default withFormik({
+  mapPropsToValues: ({ field }) => field,
+  enableReinitialize: true,
+})(FieldEditor);

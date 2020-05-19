@@ -22,7 +22,11 @@ const StepEditor = ({
   return (
     <>
       <Form>
-        <CustomField name="title" label="Title" reduxAction={value => setStepTitle(stepId, value)} />
+        <CustomField 
+          name="title"
+          label="Title"
+          reduxAction={value => setStepTitle(stepId, value)}
+        />
       </Form>
       <S.FieldsContainer>
         <Typography variant="h5" gutterBottom>Fields</Typography>

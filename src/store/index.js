@@ -31,6 +31,19 @@ const composedStepSelectors = {
     selectionSlice.selectors.selectedStepId,
     stepsSlice.selectors.makeSelectStepById(),
   ),
+  makeSelectFieldsByStepId: () => createSelector(
+    state => state,
+    stepFields.selectors.makeSelectFieldIdsByStepId(),
+    fieldsSlice.selectors.makeSelectFieldsByIds(),
+  ),
+};
+
+const composedFieldSelectors = {
+  selectedField: createSelector(
+    state => state,
+    selectionSlice.selectors.selectedFieldId,
+    fieldsSlice.selectors.makeSelectFieldById(),
+  ),
 };
 
 export const selectors = {
@@ -39,7 +52,10 @@ export const selectors = {
     ...stepFields.selectors,
     ...composedStepSelectors,
   },
-  fields: fieldsSlice.selectors,
+  fields: {
+    ...fieldsSlice.selectors,
+    ...composedFieldSelectors,
+  },
   selection: selectionSlice.selectors,
 };
 
