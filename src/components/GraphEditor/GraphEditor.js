@@ -80,15 +80,17 @@ const GraphEditor = ({
       .getModel()
       .addNode(node);
 
-    nodeModel
-      .registerListener({
-        eventDidFire: handleStepEvent,
-      });
-    
-    const stepId = node.options.id;
-    addStep(createNewStep(stepId, `New Step ${stepsCount + 1}`));
-
-    BaseModel.prototype.setSelected.call(nodeModel, true);
+    if (type === 'step') {
+      nodeModel
+        .registerListener({
+          eventDidFire: handleStepEvent,
+        });
+      
+      const stepId = node.options.id;
+      addStep(createNewStep(stepId, `New Step ${stepsCount + 1}`));
+  
+      BaseModel.prototype.setSelected.call(nodeModel, true);
+    }
 
     forceUpdate();
   };
