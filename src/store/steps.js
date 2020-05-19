@@ -17,7 +17,7 @@ const slice = createSlice({
       state.ids = state.ids.filter(id => id !== stepId);
       delete state.items[stepId];
     },
-    setStepTitle: (state, { payload: { stepId, newTitle } }) => {
+    setTitle: (state, { payload: { stepId, newTitle } }) => {
       state.items[stepId].title = newTitle;
     },
   },
@@ -31,8 +31,8 @@ export const {
 export const actions = {
   add: step => slice.actions.add({ step }),
   remove: stepId => slice.actions.remove({ stepId }),
-  setStepTitle: (stepId, newTitle) => debounceAction(
-    slice.actions.setStepTitle({ stepId, newTitle })
+  setTitle: (stepId, newTitle) => debounceAction(
+    slice.actions.setTitle({ stepId, newTitle })
   ),
 };
 
