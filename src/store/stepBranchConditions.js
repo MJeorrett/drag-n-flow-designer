@@ -22,6 +22,10 @@ const slice = createSlice({
       state.ids.push(step.id);
       state.items[step.id] = branchCondition;
     },
+    [stepActions.remove]: (state, { payload: { stepId } }) => {
+      state.ids = state.ids.filter(id => id !== stepId);
+      delete state.items[stepId];
+  },
   },
 });
 
