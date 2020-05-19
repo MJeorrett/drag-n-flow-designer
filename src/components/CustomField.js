@@ -1,23 +1,18 @@
-import React, { useEffect } from 'react';
-import { useField } from 'formik';
+import React from 'react';
 import { TextField } from '@material-ui/core';
 
+import CustomInput from './CustomInput';
+
 const CustomField = ({
-  label,
-  reduxAction,
   ...props
 }) => {
-  const [field] = useField(props);
-  const { value } = field;
-  useEffect(
-    () => {
-      reduxAction(value);
-    },
-    [reduxAction, value]
-  );
-
   return (
-    <TextField label={label} {...field} {...props} />
+    <CustomInput
+      {...props}
+      render={renderProps => (
+        <TextField {...renderProps} />
+      )}
+    />
   );
 };
 
