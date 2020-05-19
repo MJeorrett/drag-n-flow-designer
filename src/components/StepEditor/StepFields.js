@@ -1,27 +1,28 @@
 import React from 'react';
-import { Button } from '@material-ui/core';
-
-import StepField from './StepField';
-
-const renderFields = fieldIds => (
-  fieldIds.map(fieldId => (
-    <StepField
-      key={fieldId}
-      fieldId={fieldId}
-    />
-  ))
-);
+import { Button, List, ListItem } from '@material-ui/core';
 
 export default ({
   fieldIds,
   addField,
+  setSelectedFieldId
 }) => {
+  const renderFields = fieldIds => (
+    fieldIds.map(fieldId => (
+      <ListItem
+        button
+        key={fieldId}
+        onClick={() => setSelectedFieldId(fieldId)}
+      >
+        {fieldId}
+      </ListItem>
+    ))
+  );
   return (
     <>
-      <ul>
+      <List>
         {renderFields(fieldIds)}
-      </ul>
-      <Button type="button" onClick={addField}>Add Field</Button>
+      </List>
+      <Button type="button" variant="contained" onClick={addField}>Add Field</Button>
     </>
   );
 };
