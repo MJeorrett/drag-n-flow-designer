@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 

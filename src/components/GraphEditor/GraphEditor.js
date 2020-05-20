@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from '@emotion/styled';
 import { CanvasWidget, BaseModel } from '@projectstorm/react-canvas-core';
 import { DefaultNodeModel } from '@projectstorm/react-diagrams';
