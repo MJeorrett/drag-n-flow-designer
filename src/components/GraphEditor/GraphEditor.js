@@ -37,11 +37,6 @@ const buildNode = type => {
   return node;
 }
 
-function useForceUpdate(){
-  const [, setValue] = useState(0);
-  return () => setValue(value => ++value);
-}
-
 const GraphEditor = ({
   engine,
   stepsCount,
@@ -51,8 +46,6 @@ const GraphEditor = ({
   removeSelectedStepId,
   closeFieldEditor,
 }) => {
-  const forceUpdate = useForceUpdate();
-
   const handleStepSelect = (
     {
       entity: { options: { id: stepId } },
@@ -97,7 +90,7 @@ const GraphEditor = ({
       BaseModel.prototype.setSelected.call(nodeModel, true);
     }
 
-    forceUpdate();
+    engine.repaintCanvas();
   };
 
   return (
