@@ -46,11 +46,8 @@ const addDefaultNodes = () => {
     });
   start.setPosition(150, 100);
   
-  const end = new FinishNode.Model();
-  end.setPosition(550, 100);
-  
   const model = new DiagramModel();
-  model.addAll(start, end);
+  model.addAll(start);
   engine.setModel(model);
 };
 

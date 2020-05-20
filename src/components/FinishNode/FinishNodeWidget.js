@@ -6,21 +6,28 @@ import FinishPortWidget from './FinishPortWidget';
 
 const S = {
   Root: styled.div`
-    background: red;
+    background: lightpink;
+    border: ${p => p.isSelected ? '1.5px solid dodgerblue' : '0.5px solid red'};
+    border-radius: 2px;
+    box-shadow: ${p => p.isSelected ? '4px 4px 7px 0px rgba(74,74,74,0.7)' : 'none'};
+    transition: all 200ms ease-out;
+    color: red;
+    font-size: 1.5rem;
     opacity: 0.9;
-    border: ${p => p.isSelected ? '2px solid dodgerblue' : '1px solid black'};
-    border-radius: ${p => p.isSelected ? '4px' : '2px'};
+  `,
+  Label: styled.p`
+    padding: 0 0.5rem;
   `,
 };
 
 const FinishNodeWidget = ({
   engine,
   node,
+  isSelected,
 }) => {
-  const isSelected = node.isSelected;
-  
   return (
     <S.Root isSelected={isSelected}>
+      <S.Label>FINISH</S.Label>
       <PortWidget
         port={node.getPort('step-finish')}
         engine={engine}

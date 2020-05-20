@@ -24,6 +24,12 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.selection.removeSelectedStepId(stepId));
     dispatch(actions.selection.setSelectedFieldId(null));
   },
+  addSelectedFinishId: finishId => {
+    dispatch(actions.selection.addSelectedFinishNodeId(finishId));
+  },
+  removeSelectedFinishId: finishId => {
+    dispatch(actions.selection.removeSelectedFinishNode(finishId));
+  },
   setStartNodeIsSelected: () => {
     dispatch(actions.selection.setStartNodeIsSelected());
   },

@@ -2,7 +2,7 @@ import React from 'react';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 
 import FinishNodeModel from './FinishNodeModel';
-import FinishNodeWidget from './FinishNodeWidget';
+import FinishNodeWidget from './FinishNodeWidgetContainer';
 
 class FinishNodeFactory extends AbstractReactFactory {
   constructor() {

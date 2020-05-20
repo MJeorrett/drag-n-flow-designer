@@ -6,6 +6,7 @@ const S = {
     background: green;
     border-top: 1px solid green;
     color: whitesmoke;
+    cursor: crosshair;
     height: 1.5rem;
     font-size: 1rem;
     padding-right: 0.5rem;
@@ -19,7 +20,7 @@ const S = {
 
 const StartPortWidget = () => {
   return (
-    <S.Root>first step</S.Root>
+    <S.Root>{'>'}</S.Root>
   );
 };
 

@@ -1,11 +1,11 @@
 import React from 'react';
 import styled from '@emotion/styled';
 import { CanvasWidget, BaseModel } from '@projectstorm/react-canvas-core';
-import { DefaultNodeModel } from '@projectstorm/react-diagrams';
 
 import { createNewStep, createNewBranchCondition } from '../../models';
 
 import * as StepNode from '../StepNode';
+import * as FinishNode from '../FinishNode';
 
 const S = {
   Container: styled.div`
@@ -25,8 +25,7 @@ const buildNode = type => {
       break;
     }
     case 'finish': {
-      node = new DefaultNodeModel('Finish', 'red');
-      node.addInPort('');
+      node = new FinishNode.Model();
       break;
     }
     default: {
@@ -44,18 +43,16 @@ const GraphEditor = ({
   addStep,
   addSelectedStepId,
   removeSelectedStepId,
+  addSelectedFinishId,
+  removeSelectedFinishId,
   closeFieldEditor,
 }) => {
-  const handleStepSelect = (
-    {
-      entity: { options: { id: stepId } },
-      isSelected,
-    }) => {
+  const handleStepSelect = ({ entity, isSelected }) => {
       if (isSelected) {
-        addSelectedStepId(stepId);
+        addSelectedStepId(entity.options.id);
       }
       else {
-        removeSelectedStepId(stepId);
+        removeSelectedStepId(entity.options.id);
         closeFieldEditor();
       }
   };
@@ -65,6 +62,21 @@ const GraphEditor = ({
       handleStepSelect(event);
     }
   };
+
+  const handleFinishNodeSelect = ({ entity, isSelected }) => {
+    if (isSelected) {
+      addSelectedFinishId(entity.options.id);
+    }
+    else {
+      removeSelectedFinishId(entity.options.id);
+    }
+  };
+
+  const handleFinishNodeEvent = event => {
+    if (event.function === "selectionChanged") {
+      handleFinishNodeSelect(event);
+    }
+  }
 
   const handleDrop = event => {
     const type = event.dataTransfer.getData('node-type');
@@ -77,10 +89,9 @@ const GraphEditor = ({
       .addNode(node);
 
     if (type === 'step') {
-      nodeModel
-        .registerListener({
-          eventDidFire: handleStepEvent,
-        });
+      nodeModel.registerListener({
+        eventDidFire: handleStepEvent,
+      });
       
       const stepId = node.options.id;
       const newStep = createNewStep(stepId, `New Step ${stepsCount + 1}`);
@@ -89,6 +100,11 @@ const GraphEditor = ({
       engine.getModel().clearSelection();
       BaseModel.prototype.setSelected.call(nodeModel, true);
     }
+    else if (type === 'finish') {
+      nodeModel.registerListener({
+        eventDidFire: handleFinishNodeEvent,
+      });
+    };
 
     engine.repaintCanvas();
   };
