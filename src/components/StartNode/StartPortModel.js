@@ -7,9 +7,21 @@ class StartPortModel extends PortModel {
       name: 'step-start',
       alignment: PortModelAlignment.RIGHT,
     });
+
+    this.setMaximumLinks(1);
   }
 
-  createLinkModel = () => new DefaultLinkModel();
+  createLinkModel() {
+    return new DefaultLinkModel();
+  }
+
+  canLinkToPort(otherPort) {
+    const existingLinksCount = Object.keys(this.getLinks()).length; // Includes link being created.
+
+    if (existingLinksCount > 1) return false;
+
+    return otherPort.options.type === 'step-prev';
+  }
 }
 
 export default StartPortModel;

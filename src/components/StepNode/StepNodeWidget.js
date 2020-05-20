@@ -24,18 +24,20 @@ const buildPorts = ({ node, engine, branchCondition }) => {
 
   ports.push(
     <PortWidget
+      key="prev"
       port={node.getPort('step-prev')}
       engine={engine}
     >
       <StepPortWidget type="prev" />
     </PortWidget>
   );
-  ports.push(<S.Spacer />);
+  ports.push(<S.Spacer key="spacer" />);
 
   switch (branchCondition.type) {
     case 'nextStep': {
       ports.push(
         <PortWidget
+          key="next"
           port={node.getPort('step-next')}
           engine={engine}
         >
@@ -48,12 +50,14 @@ const buildPorts = ({ node, engine, branchCondition }) => {
       ports.push(
         <div>
           <PortWidget
+            key="true"
             port={node.getPort('step-next-true')}
             engine={engine}
           >
             <StepPortWidget type="next-true" />
           </PortWidget>
           <PortWidget
+            key="false"
             port={node.getPort('step-next-false')}
             engine={engine}
           >

@@ -5,11 +5,21 @@ class FinishPortModel extends PortModel {
     super({
       type: 'step-finish',
       name: 'step-finish',
-      alignment: PortModelAlignment.RIGHT,
+      alignment: PortModelAlignment.LEFT,
     });
   }
 
-  createLinkModel = () => new DefaultLinkModel();
+  createLinkModel() {
+    return new DefaultLinkModel();
+  }
+
+  canLinkToPort(otherPort) {
+    const otherType = otherPort.options.type;
+
+    return otherType === 'step-next' ||
+      otherType === 'step-next-true' ||
+      otherType === 'step-next-false';
+  }
 }
 
 export default FinishPortModel;

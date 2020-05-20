@@ -21,6 +21,9 @@ const engine = createEngine({
 });
 engine.maxNumberPointsPerLink = 0;
 
+const state = engine.getStateMachine().getCurrentState();
+state.dragNewLink.config.allowLooseLinks = false;
+
 const nodeFactories = engine.getNodeFactories();
 nodeFactories.registerFactory(new StepNode.Factory());
 nodeFactories.registerFactory(new StartNode.Factory());
@@ -44,8 +47,8 @@ const addDefaultNodes = () => {
     .registerListener({
       eventDidFire: handleStartEvent,
     });
-  start.setPosition(250, 250);
-  
+  start.setPosition(250, 175);
+
   const model = new DiagramModel();
   model.addAll(start);
   engine.setModel(model);
