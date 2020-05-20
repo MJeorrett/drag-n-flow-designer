@@ -8,6 +8,14 @@ import * as StartNode from './components/StartNode';
 import * as FinishNode from './components/FinishNode';
 import SimplePortFactory from './components/SimplePortFactory';
 
+import { actions } from './store';
+
+let _store;
+
+export const initialize = store => {
+  _store = store;
+};
+
 const engine = createEngine({
   registerDefaultDeleteItemsAction: false,
 });
@@ -20,8 +28,22 @@ nodeFactories.registerFactory(new FinishNode.Factory());
 
 engine.getPortFactories().registerFactory(new SimplePortFactory('step', () => new DefaultPortModel()));
 
+const handleStartSelect = ({ isSelected }) => {
+  _store.dispatch(actions.selection.setStartNodeIsSelected(isSelected));
+}
+
+const handleStartEvent = event => {
+  if (event.function === "selectionChanged") {
+    handleStartSelect(event);
+  }
+};
+
 const addDefaultNodes = () => {
   const start = new StartNode.Model();
+  start
+    .registerListener({
+      eventDidFire: handleStartEvent,
+    });
   start.setPosition(150, 100);
   
   const end = new FinishNode.Model();

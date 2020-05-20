@@ -2,7 +2,7 @@ import React from 'react';
 import { AbstractReactFactory } from '@projectstorm/react-canvas-core';
 
 import StartNodeModel from './StartNodeModel';
-import StartNodeWidget from './StartNodeWidget';
+import StartNodeWidget from './StartNodeWidgetContainer';
 
 class StartNodeFactory extends AbstractReactFactory {
   constructor() {

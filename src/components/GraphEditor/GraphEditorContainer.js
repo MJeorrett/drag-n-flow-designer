@@ -24,6 +24,9 @@ const mapDispatchToProps = dispatch => ({
     dispatch(actions.selection.removeSelectedStepId(stepId));
     dispatch(actions.selection.setSelectedFieldId(null));
   },
+  setStartNodeIsSelected: () => {
+    dispatch(actions.selection.setStartNodeIsSelected());
+  },
   closeFieldEditor: () => {
     dispatch(actions.selection.setFieldEditorIsOpen(false));
   },
