@@ -1,6 +1,5 @@
 export const stepBranchConditionTypes = {
   nextStep: 'Next Step',
-  finalStep: 'Final Step',
   field: 'Based on Field',
 };
 

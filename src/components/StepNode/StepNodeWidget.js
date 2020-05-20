@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 
@@ -28,9 +28,7 @@ const S = {
   `,
 };
 
-const buildPorts = ({ node, engine }) => {
-  const { branchType } = node.getOptions();
-
+const buildPorts = ({ node, engine, branchCondition }) => {
   const ports = []
 
   ports.push(
@@ -43,7 +41,7 @@ const buildPorts = ({ node, engine }) => {
   );
   ports.push(<S.Spacer />);
 
-  switch (branchType) {
+  switch (branchCondition.type) {
     case 'nextStep': {
       ports.push(
         <PortWidget
@@ -75,7 +73,7 @@ const buildPorts = ({ node, engine }) => {
       break;
     }
     default: {
-      throw new Error(`Unsupported branch type ${branchType}.`)
+      throw new Error(`Unsupported branch type ${branchCondition.type}.`)
     }
   }
 
@@ -86,13 +84,14 @@ const StepNodeWidget = ({
   engine,
   node,
   step,
+  branchCondition,
   isSelected,
 }) => {
   return (
     <S.Container selected={isSelected}>
       <S.Title>{step.title || '<no title>'}</S.Title>
       <S.Ports>
-        {buildPorts({ node, engine })}
+        {buildPorts({ node, engine, branchCondition })}
       </S.Ports>
     </S.Container>
   );

@@ -9,22 +9,38 @@ class StepNodeModel extends NodeModel {
       branchType,
     });
 
-    this.addPort(new StepPortModel('step-prev', PortModelAlignment.LEFT));
-
+    this.prevPort = this.addPort(new StepPortModel('step-prev', PortModelAlignment.LEFT));
+    this._addPortsForBranchType(branchType);    
+  }
+  
+  _addPortsForBranchType = branchType => {
     switch (branchType) {
       case 'nextStep': {
-        this.addPort(new StepPortModel('step-next', PortModelAlignment.RIGHT));
+        this.stepNextPort = this.addPort(new StepPortModel('step-next', PortModelAlignment.RIGHT));
         break;
       }
       case 'field': {
-        this.addPort(new StepPortModel('step-next-true', PortModelAlignment.RIGHT));
-        this.addPort(new StepPortModel('step-next-false', PortModelAlignment.RIGHT));
+        this.stepNextTruePort = this.addPort(new StepPortModel('step-next-true', PortModelAlignment.RIGHT));
+        this.stepNextFalsePort = this.addPort(new StepPortModel('step-next-false', PortModelAlignment.RIGHT));
         break;
       }
       default: {
         throw new Error(`Unsupported branch type ${branchType}.`)
       }
     }
+  }
+
+  _clearOutputPorts = () => {
+    if (this.stepNextPort) this.removePort(this.stepNextPort);
+    if (this.stepNextTruePort) this.removePort(this.stepNextTruePort);
+    if (this.stepNextFalsePort) this.removePort(this.stepNextFalsePort);
+  }
+
+  setBranchType = newBranchType => {
+    if (this.getOptions().branchType === newBranchType) return;
+    this._clearOutputPorts();
+    this._addPortsForBranchType(newBranchType);
+    this.getOptions().branchType = newBranchType;
   }
 }
 

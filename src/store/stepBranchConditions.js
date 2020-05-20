@@ -1,5 +1,7 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit';
 
+import engine from '../diagramEngine';
+
 import { internalActions as stepActions } from './steps';
 
 const slice = createSlice({
@@ -35,7 +37,11 @@ export const {
 } = slice;
 
 export const actions = {
-  setType: (stepId, newType) => slice.actions.setType({ stepId, newType }),
+  setType: (stepId, newType) => {
+    engine.getModel().getNode(stepId).setBranchType(newType);
+    engine.repaintCanvas();
+    return slice.actions.setType({ stepId, newType });
+  },
   setFieldId: (stepId, newFieldId) => slice.actions.setFieldId({ stepId, newFieldId }),
 };
 
