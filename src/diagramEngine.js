@@ -19,14 +19,14 @@ const addDefaultNodes = () => {
     name: 'Start',
     color: 'green',
   });
-  start.setPosition(50, 100);
+  start.setPosition(150, 100);
   start.addOutPort('');
   
   const end = new DefaultNodeModel({
     name: 'Finish',
     color: 'red',
   });
-  end.setPosition(450, 100);
+  end.setPosition(550, 100);
   end.addInPort('');
   
   const model = new DiagramModel();
