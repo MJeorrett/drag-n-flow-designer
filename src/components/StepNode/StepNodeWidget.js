@@ -77,14 +77,16 @@ const StepNodeWidget = ({
   step,
   branchCondition,
   isSelected,
+  renderDummy,
 }) => {
   return (
     <NodeWidgetBase
       color="darkblue"
       backgroundColor="white"
       isSelected={isSelected}
-      label={step.title}
+      label={renderDummy ? 'New Step' : step.title}
       labelColor="black"
+      renderDummy={renderDummy}
       renderPorts={() => (
         <S.Ports>
           {buildPorts({ node, engine, branchCondition })}

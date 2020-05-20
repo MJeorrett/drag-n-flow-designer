@@ -15,6 +15,7 @@ const FinishNodeWidget = ({
   engine,
   node,
   isSelected,
+  renderDummy,
 }) => {
   return (
     <NodeWidgetBase
@@ -23,6 +24,7 @@ const FinishNodeWidget = ({
       isSelected={isSelected}
       label="FINISH"
       labelColor="red"
+      renderDummy={renderDummy}
       renderPorts={() => (
         <S.Ports>
           <PortWidget

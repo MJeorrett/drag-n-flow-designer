@@ -17,6 +17,7 @@ const S = {
   `,
   TitleContainer: styled.div`
     padding: 0.5rem;
+    color: darkblue;
   `,
   Content: styled.div`
     border-top: 1px solid darkgrey;
@@ -93,7 +94,6 @@ const S = {
     padding: 1rem;
     position: absolute;
     top: 0;
-    width: 100px;
     z-index: 1;
   `,
 };
@@ -122,7 +122,7 @@ const Layout = ({
   return (
     <S.Root>
       <S.TitleContainer>
-        <Typography variant="h3" align="center" color="primary">Siccar Designer</Typography>
+        <Typography variant="h3" align="center">Siccar Designer</Typography>
       </S.TitleContainer>
       <S.Content>
         <S.StepEditorContainer

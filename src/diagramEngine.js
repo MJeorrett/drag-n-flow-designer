@@ -44,7 +44,7 @@ const addDefaultNodes = () => {
     .registerListener({
       eventDidFire: handleStartEvent,
     });
-  start.setPosition(150, 100);
+  start.setPosition(250, 250);
   
   const model = new DiagramModel();
   model.addAll(start);
