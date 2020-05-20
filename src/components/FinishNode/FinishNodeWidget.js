@@ -2,33 +2,33 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 
-import StartPortWidget from './StartPortWidget';
+import FinishPortWidget from './FinishPortWidget';
 
 const S = {
   Root: styled.div`
-    background: green;
+    background: red;
     opacity: 0.9;
     border: ${p => p.selected ? '2px solid dodgerblue' : '1px solid black'};
     border-radius: ${p => p.selected ? '4px' : '2px'};
   `,
 };
 
-const StartNodeWidget = ({
+const FinishNodeWidget = ({
   engine,
   node,
 }) => {
   const isSelected = node.isSelected;
-
+  
   return (
     <S.Root selected={isSelected}>
       <PortWidget
-        port={node.getPort('step-start')}
+        port={node.getPort('step-finish')}
         engine={engine}
       >
-        <StartPortWidget />
+        <FinishPortWidget />
       </PortWidget>
     </S.Root>
   );
 };
 
-export default StartNodeWidget;
+export default FinishNodeWidget;
