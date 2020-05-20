@@ -10,7 +10,7 @@ const S = {
     transition: all 200ms ease-out;
     opacity: 0.9;
     &:hover {
-      box-shadow: ${p => p.renderDummy ? '4px 4px 7px 0px rgba(74,74,74,0.7)' : 'none'};
+      box-shadow: ${p => p.renderDummy || p.isSelected ? '4px 4px 7px 0px rgba(74,74,74,0.7)' : 'none'};
     }
   `,
   Label: styled.p`
