@@ -26,7 +26,61 @@ const S = {
     flex-grow: 1;
     min-width: 1em;
   `,
-}
+};
+
+const buildPorts = ({ node, engine }) => {
+  const { branchType } = node.getOptions();
+
+  const ports = []
+
+  ports.push(
+    <PortWidget
+      port={node.getPort('step-prev')}
+      engine={engine}
+    >
+      <StepPortWidget type="prev" />
+    </PortWidget>
+  );
+  ports.push(<S.Spacer />);
+
+  switch (branchType) {
+    case 'nextStep': {
+      ports.push(
+        <PortWidget
+          port={node.getPort('step-next')}
+          engine={engine}
+        >
+          <StepPortWidget type="next" />
+        </PortWidget>
+      );
+      break;
+    }
+    case 'field': {
+      ports.push(
+        <div>
+          <PortWidget
+            port={node.getPort('step-next-true')}
+            engine={engine}
+          >
+            <StepPortWidget type="next-true" />
+          </PortWidget>
+          <PortWidget
+            port={node.getPort('step-next-false')}
+            engine={engine}
+          >
+            <StepPortWidget type="next-false" />
+          </PortWidget>
+        </div>
+      );
+      break;
+    }
+    default: {
+      throw new Error(`Unsupported branch type ${branchType}.`)
+    }
+  }
+
+  return ports;
+};
 
 const StepNodeWidget = ({
   engine,
@@ -38,19 +92,7 @@ const StepNodeWidget = ({
     <S.Container selected={isSelected}>
       <S.Title>{step.title || '<no title>'}</S.Title>
       <S.Ports>
-        <PortWidget
-          port={node.getPort('prev')}
-          engine={engine}
-        >
-          <StepPortWidget type="prev" />
-        </PortWidget>
-        <S.Spacer />
-        <PortWidget
-          port={node.getPort('next')}
-          engine={engine}
-        >
-          <StepPortWidget type="next" />
-        </PortWidget>
+        {buildPorts({ node, engine })}
       </S.Ports>
     </S.Container>
   );

@@ -15,11 +15,18 @@ const S = {
   `,
 };
 
+const labels = {
+  next: 'next',
+  prev: 'prev',
+  'next-true': 'when true',
+  'next-false': 'when false',
+};
+
 const StepPortWidget = ({
   type,
 }) => {
   return (
-    <S.Port type={type}>{type === 'next' ? 'next' : 'prev'}</S.Port>
+    <S.Port>{labels[type]}</S.Port>
   );
 };
 

@@ -21,7 +21,7 @@ const buildNode = type => {
   let node;
   switch (type) {
     case 'step': {
-      node = new StepNode.Model();
+      node = new StepNode.Model('nextStep');
       break;
     }
     case 'finish': {

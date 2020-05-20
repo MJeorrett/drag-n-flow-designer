@@ -1,10 +1,10 @@
 import { PortModel, DefaultLinkModel } from '@projectstorm/react-diagrams';
 
 class StepPortModel extends PortModel {
-  constructor(name, alignment) {
+  constructor(type, alignment) {
     super({
-      type: 'step',
-      name,
+      type,
+      name: type,
       alignment,
     });
   }
