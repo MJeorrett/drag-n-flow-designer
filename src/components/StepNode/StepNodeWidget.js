@@ -2,19 +2,10 @@ import React from 'react';
 import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 
+import NodeWidgetBase from '../NodeWidgetBase';
 import StepPortWidget from './StepPortWidget';
 
 const S = {
-  Container: styled.div`
-    background: white;
-    opacity: 0.9;
-    border: ${p => p.selected ? '2px solid dodgerblue' : '1px solid black'};
-    border-radius: 5px;
-  `,
-  Title: styled.h4`
-    padding: 5px;
-    text-align: center;
-  `,
   Ports: styled.div`
     display: flex;
     border-bottom-left-radius: 5px;
@@ -88,12 +79,18 @@ const StepNodeWidget = ({
   isSelected,
 }) => {
   return (
-    <S.Container selected={isSelected}>
-      <S.Title>{step.title || '<no title>'}</S.Title>
-      <S.Ports>
-        {buildPorts({ node, engine, branchCondition })}
-      </S.Ports>
-    </S.Container>
+    <NodeWidgetBase
+      color="darkblue"
+      backgroundColor="white"
+      isSelected={isSelected}
+      label={step.title}
+      labelColor="black"
+      renderPorts={() => (
+        <S.Ports>
+          {buildPorts({ node, engine, branchCondition })}
+        </S.Ports>
+      )}
+    />
   );
 };
 

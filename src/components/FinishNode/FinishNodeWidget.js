@@ -3,22 +3,13 @@ import { PortWidget } from '@projectstorm/react-diagrams';
 import styled from '@emotion/styled';
 
 import FinishPortWidget from './FinishPortWidget';
+import NodeWidgetBase from '../NodeWidgetBase';
 
 const S = {
-  Root: styled.div`
-    background: lightpink;
-    border: ${p => p.isSelected ? '1.5px solid dodgerblue' : '0.5px solid red'};
-    border-radius: 2px;
-    box-shadow: ${p => p.isSelected ? '4px 4px 7px 0px rgba(74,74,74,0.7)' : 'none'};
-    transition: all 200ms ease-out;
-    color: red;
-    font-size: 1.5rem;
-    opacity: 0.9;
+  Ports: styled.div`
+    display: flex;
   `,
-  Label: styled.p`
-    padding: 0 0.5rem;
-  `,
-};
+}
 
 const FinishNodeWidget = ({
   engine,
@@ -26,15 +17,23 @@ const FinishNodeWidget = ({
   isSelected,
 }) => {
   return (
-    <S.Root isSelected={isSelected}>
-      <S.Label>FINISH</S.Label>
-      <PortWidget
-        port={node.getPort('step-finish')}
-        engine={engine}
-      >
-        <FinishPortWidget />
-      </PortWidget>
-    </S.Root>
+    <NodeWidgetBase
+      color="red"
+      backgroundColor="lightPink"
+      isSelected={isSelected}
+      label="FINISH"
+      labelColor="red"
+      renderPorts={() => (
+        <S.Ports>
+          <PortWidget
+            port={node.getPort('step-finish')}
+            engine={engine}
+          >
+            <FinishPortWidget />
+          </PortWidget>
+        </S.Ports>
+      )}
+    />
   );
 };
 
