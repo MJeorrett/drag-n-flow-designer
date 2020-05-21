@@ -78,6 +78,8 @@ const handleLinkEvent = event => {
     return;
   }
 
+  if (!link.targetPort) return;
+
   const sourceIsStart = link.sourcePort.parent.options.type === 'step-start';
   let targetStepId;
 
