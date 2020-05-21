@@ -7,6 +7,7 @@ function ContextMenu() {
   const handleRightClick = event => {
     event.preventDefault();
     setMousePosition({ x: event.clientX, y: event.clientY });
+    console.log(event);
   };
 
   const handleClose = () => {

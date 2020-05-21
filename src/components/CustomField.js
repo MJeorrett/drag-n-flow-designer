@@ -17,9 +17,6 @@ const CustomField = ({
             width: 100%;
           `}
           {...renderProps}
-          inputProps={{
-            autoFocus: true,
-          }}
         />
       )}
     />

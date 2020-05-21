@@ -1,7 +1,10 @@
 import createEngine, {
   DiagramModel,
   DefaultPortModel,
+  DefaultLinkModel,
+  PointModel,
 } from '@projectstorm/react-diagrams';
+import { Action, InputType } from '@projectstorm/react-canvas-core';
 
 import * as StepNode from './components/StepNode';
 import * as StartNode from './components/StartNode';
@@ -16,6 +19,30 @@ export const initialize = store => {
   _store = store;
 };
 
+class CustomDeleteItemsAction extends Action {
+  constructor() {
+    super({
+      type: InputType.KEY_DOWN,
+      fire: event => {
+        if (event.event.keyCode === 46 || event.event.keyCode === 8) {
+          const selection = engine.getModel().getSelectedEntities();
+          console.log(selection);
+          selection.forEach(entity => {
+            if (
+              entity instanceof DefaultLinkModel ||
+              entity instanceof PointModel
+            ) {
+              entity.remove();
+            }
+          });
+          this.engine.repaintCanvas();
+        }
+        console.log(event);
+      },
+    });
+  }
+}
+
 const engine = createEngine({
   registerDefaultDeleteItemsAction: false,
 });
@@ -28,6 +55,7 @@ nodeFactories.registerFactory(new StepNode.Factory());
 nodeFactories.registerFactory(new StartNode.Factory());
 nodeFactories.registerFactory(new FinishNode.Factory());
 
+engine.getActionEventBus().registerAction(new CustomDeleteItemsAction());
 engine.getPortFactories().registerFactory(new SimplePortFactory('step', () => new DefaultPortModel()));
 
 const handleStartSelect = ({ isSelected }) => {
@@ -40,66 +68,60 @@ const handleStartEvent = event => {
   }
 };
 
-const handleLinkTargetPortChangedEvent = ({ entity: link }) => {
+const handleLinkEvent = event => {
+  const { entity: link } = event;
+  const eventType = event.function;
+  if (
+    eventType !== 'targetPortChanged' &&
+    eventType !== 'entityRemoved'
+  ) {
+    return;
+  }
+
   const sourceIsStart = link.sourcePort.parent.options.type === 'step-start';
   let targetStepId;
 
   if (sourceIsStart) {
     targetStepId = link.targetPort.parent.options.id;
-    _store.dispatch(actions.steps.setFirstStepId(targetStepId));
+    _store.dispatch(actions.steps.setFirstStepId(eventType === 'targetPortChanged' ? targetStepId : null));
     return;
   }
 
   const sourceStepId = link.sourcePort.parent.options.id;
   const sourcePortType = link.sourcePort.options.type;
   const targetIsFinish = link.targetPort.parent.options.type === 'step-finish';
-
+  
   if (targetIsFinish) {
-    switch (sourcePortType) {
-      case 'step-next': {
-        _store.dispatch(actions.steps.setIsFinalStep(sourceStepId, true));
-        break;
-      }
-      case 'step-next-true': {
-        _store.dispatch(actions.branchConditions.setFinishWhenTrue(sourceStepId, true));
-        break;
-      }
-      case 'step-next-false': {
-        _store.dispatch(actions.branchConditions.setFinishWhenFalse(sourceStepId, true));
-        break;
-      }
-      default: {
-        throw new Error(`Unrecognised port type '${sourcePortType}'`)
-      }
+    const stepToFinishActions = {
+      'step-next': actions.steps.setIsFinalStep,
+      'step-next-true': actions.branchConditions.setFinishWhenTrue,
+      'step-next-false': actions.branchConditions.setFinishWhenFalse,
+    };
+
+    let action = stepToFinishActions[sourcePortType];
+
+    if (!action) {
+      throw new Error(`Unrecognised port type '${sourcePortType}'`)
     }
+
+    _store.dispatch(action(sourceStepId, eventType === 'targetPortChanged'));
   }
   else {
     targetStepId = link.targetPort.parent.options.id;
-    switch (sourcePortType) {
-      case 'step-next': {
-        _store.dispatch(actions.branchConditions.setNextStepId(sourceStepId, targetStepId));
-        break;
-      }
-      case 'step-next-true': {
-        _store.dispatch(actions.branchConditions.setNextStepIdWhenTrue(sourceStepId, targetStepId));
-        break;
-      }
-      case 'step-next-false': {
-        _store.dispatch(actions.branchConditions.setNextStepIdWhenFalse(sourceStepId, targetStepId));
-        break;
-      }
-      default: {
-        throw new Error(`Unrecognised port type '${sourcePortType}'`)
-      }
+    const stepToStepActions = {
+      'step-next': actions.branchConditions.setNextStepId,
+      'step-next-true': actions.branchConditions.setNextStepIdWhenTrue,
+      'step-next-false': actions.branchConditions.setNextStepIdWhenFalse,
+    };
+    let action = stepToStepActions[sourcePortType];
+
+    if (!action) {
+      throw new Error(`Unrecognised port type '${sourcePortType}'`)
     }
+
+    _store.dispatch(action(sourceStepId, eventType === 'entityRemoved' ? null : targetStepId));
   }
 };
-
-const handleLinkEvent = event => {
-  if (event.function === 'targetPortChanged') {
-    handleLinkTargetPortChangedEvent(event);
-  }
-}
 
 const addDefaultNodes = () => {
   const start = new StartNode.Model();

@@ -6,7 +6,9 @@ import engine, { initialize } from './diagramEngine';
 
 import Layout from './components/Layout';
 
-import ContextMenu from './ContextMenu';
+// No need for this now that deletion is fixed.
+// But keeping around for time being...
+// import ContextMenu from './ContextMenu';
 
 initialize(store);
 
@@ -14,7 +16,7 @@ function App() {
   return (
     <Provider store={store}>
       <Layout engine={engine} />
-      <ContextMenu />
+      {/* <ContextMenu /> */}
     </Provider>
   );
 }

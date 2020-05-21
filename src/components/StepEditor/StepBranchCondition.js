@@ -5,6 +5,8 @@ const NextStep = ({
   nextStepTitle,
   nextStepTitleWhenFalse,
   nextStepTitleWhenTrue,
+  finishWhenFalse,
+  finishWhenTrue,
 }) => {
   if (type === 'nextStep') {
     return <p>Next Step: {nextStepTitle || '<not set>'}</p>
@@ -12,8 +14,8 @@ const NextStep = ({
 
   return (
     <>
-      <p>Next Step When True: {nextStepTitleWhenTrue || '<not set>'}</p>
-      <p>Next Step When False: {nextStepTitleWhenFalse || '<not set>'}</p>
+      <p>When True: {finishWhenTrue ? 'Finish Process' : (nextStepTitleWhenTrue || '<not set>')}</p>
+      <p>When False: {finishWhenFalse ? 'Finish Process' : (nextStepTitleWhenFalse || '<not set>')}</p>
     </>
   );
 };
@@ -21,6 +23,8 @@ const NextStep = ({
 const StepBranchCondition = ({
   branchCondition: {
     type,
+    finishWhenFalse,
+    finishWhenTrue,
   },
   nextStepTitle,
   nextStepTitleWhenFalse,
@@ -43,6 +47,8 @@ const StepBranchCondition = ({
           nextStepTitle={nextStepTitle}
           nextStepTitleWhenFalse={nextStepTitleWhenFalse}
           nextStepTitleWhenTrue={nextStepTitleWhenTrue}
+          finishWhenFalse={finishWhenFalse}
+          finishWhenTrue={finishWhenTrue}
         />
       )}
       {stepIsFinal && (
