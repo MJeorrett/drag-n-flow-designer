@@ -7,6 +7,7 @@ const S = {
     border: ${p => p.isSelected ? '1.5px solid dodgerblue' : `0.5px solid ${p.color}`};
     border-radius: 2px;
     box-shadow: ${p => p.isSelected ? '4px 4px 7px 0px rgba(74,74,74,0.7)' : 'none'};
+    cursor: pointer;
     transition: all 200ms ease-out;
     opacity: 0.9;
     &:hover {
