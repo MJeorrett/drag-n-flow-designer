@@ -9,6 +9,7 @@ import CustomField from '../CustomField';
 import CustomDropdown from '../CustomDropdown';
 
 import StepFields from './StepFieldsContainer';
+import StepBranchCondition from './StepBranchConditionContainer';
 
 const S = {
   Root: styled.div`
@@ -82,6 +83,12 @@ const StepEditor = ({
         {
           branchCondition.type === "field" && renderBranchConditionFieldOptions()
         }
+      </S.Section>
+      <S.Section>
+        <StepBranchCondition
+          stepId={stepId}
+          branchCondition={branchCondition}
+        />
       </S.Section>
     </S.Root>
   );

@@ -49,15 +49,25 @@ export const actions = {
 
 const selectStepsState = state => state[slice.name];
 
+const makeSelectStepById = () => createSelector(
+  selectStepsState,
+  (_, stepId) => stepId,
+  (state, stepId) => state.items[stepId],
+);
+
 export const selectors = {
   count: createSelector(
     selectStepsState,
     state => state.ids.length,
   ),
-  makeSelectStepById: () => createSelector(
-    selectStepsState,
-    (_, stepId) => stepId,
-    (state, stepId) => state.items[stepId],
+  makeSelectStepById,
+  makeSelectStepTitleById: () => createSelector(
+    makeSelectStepById(),
+    step => step.title,
+  ),
+  makeSelectStepIsFinalById: () => createSelector(
+    makeSelectStepById(),
+    step => step.isFinalStep,
   ),
   firstStepId: createSelector(
     selectStepsState,
