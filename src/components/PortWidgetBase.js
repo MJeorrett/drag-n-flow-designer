@@ -5,11 +5,13 @@ const S = {
   Root: styled.p`
     color: ${p => p.labelColor};
     cursor: crosshair;
-    padding: 5px;
+    padding: 2px;
+    padding-top: 1px;
     &:hover {
       border-radius: 2px;
       border: 1px solid ${p => p.labelColor};
-      padding: 4px;
+      padding: 1px;
+      padding-top: 0;
     }
   `,
 }

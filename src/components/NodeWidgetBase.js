@@ -15,14 +15,15 @@ const S = {
   `,
   Label: styled.p`
     color: ${p => p.labelColor};
-    font-size: 1.5rem;
-    padding: 0.5rem 1rem;
+    font-size: 1rem;
+    padding: 0.5rem 0.8rem;
+    max-width: 175px;
     text-align: center;
   `,
   Ports: styled.div`
     border-top: 1px solid ${p => p.color};
     background: ${p => p.color};
-    padding: 3px;
+    padding: 2px;
   `,
 };
 
