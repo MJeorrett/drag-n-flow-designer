@@ -37,7 +37,20 @@ class StepNodeModel extends NodeModel {
   }
 
   setBranchType = newBranchType => {
-    if (this.getOptions().branchType === newBranchType) return;
+    const currentBranchType = this.getOptions().branchType;
+    if (currentBranchType === newBranchType) return;
+
+    if (currentBranchType === 'nextStep') {
+      const nextPort = this.getPort('step-next');
+      nextPort.removeAllConnectedLinks();
+    }
+    else {
+      const nextTruePort = this.getPort('step-next-true');
+      const nextFalsePort = this.getPort('step-next-false');
+      nextTruePort.removeAllConnectedLinks();
+      nextFalsePort.removeAllConnectedLinks();
+    }
+
     this._clearOutputPorts();
     this._addPortsForBranchType(newBranchType);
     this.getOptions().branchType = newBranchType;

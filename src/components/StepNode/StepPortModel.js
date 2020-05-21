@@ -27,6 +27,14 @@ class StepPortModel extends PortModel {
     return otherType === 'step-prev' ||
       otherType === 'step-finish';
   }
+
+  removeAllConnectedLinks() {
+    const links = this.getLinks();
+    Object.keys(links)
+      .forEach(linkId => {
+        links[linkId].remove();
+      });
+  }
 }
 
 export default StepPortModel;
