@@ -122,7 +122,7 @@ const Layout = ({
   return (
     <S.Root>
       <S.TitleContainer>
-        <Typography variant="h3" align="center">Siccar Designer</Typography>
+        <Typography variant="h3" align="center">Drag 'n' Flow Designer</Typography>
       </S.TitleContainer>
       <S.Content>
         <S.StepEditorContainer
