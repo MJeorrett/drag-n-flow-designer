@@ -1,7 +1,7 @@
 /** @jsx jsx */
 
 import { v4 as generateId } from 'uuid';
-import { FormControl, InputLabel, Select, MenuItem } from '@material-ui/core';
+import { FormControl, FormHelperText, InputLabel, Select, MenuItem } from '@material-ui/core';
 import { css, jsx } from '@emotion/core';
 
 import CustomInput from './CustomInput';
@@ -11,6 +11,8 @@ const CustomDropdown = (props) => {
     name,
     label,
     options,
+    error,
+    helperText,
   } = props;
 
   const renderOptions = () => options.map(option => (
@@ -18,21 +20,26 @@ const CustomDropdown = (props) => {
   ));
 
   return (
-    <FormControl 
-      css={css`
-        width: 100%;
-      `}
-    >
-      <InputLabel id={`${name}-${generateId()}`}>{label}</InputLabel>
-      <CustomInput
-        {...props}
-        render={renderProps => (
-          <Select {...renderProps}>
-            {renderOptions()}
-          </Select>
-        )}
-      />
-    </FormControl>
+    <div>
+      <FormControl 
+        css={css`
+          width: 100%;
+        `}
+      >
+        <InputLabel id={`${name}-${generateId()}`}>{label}</InputLabel>
+        <CustomInput
+          {...props}
+          render={renderProps => (
+            <Select {...renderProps}>
+              {renderOptions()}
+            </Select>
+          )}
+        />
+      </FormControl>
+      <FormHelperText error={error}>
+        {helperText || ' '}
+      </FormHelperText>
+    </div>
   );
 };
 

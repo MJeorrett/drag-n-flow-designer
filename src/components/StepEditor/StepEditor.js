@@ -41,11 +41,7 @@ const StepEditor = ({
     }));
     
   const renderBranchConditionFieldOptions = () => {
-    if (branchConditionFieldOptions.length === 0) {
-      return (
-        <Typography variant="body">Please create a checkbox field.</Typography>
-      );
-    }
+    const showError = branchConditionFieldOptions.length === 0;
 
     return (
       <CustomDropdown
@@ -53,6 +49,9 @@ const StepEditor = ({
         label="Branch Condition Field"
         reduxAction={value => setBranchConditionFieldId(stepId, value)}
         options={branchConditionFieldOptions}
+        error={showError}
+        disabled={showError}
+        helperText={showError ? 'Please create a checkbox field.' : null}
       />
     );
   }
