@@ -19,7 +19,6 @@ export const initialize = store => {
 const engine = createEngine({
   registerDefaultDeleteItemsAction: false,
 });
-engine.maxNumberPointsPerLink = 0;
 
 const state = engine.getStateMachine().getCurrentState();
 state.dragNewLink.config.allowLooseLinks = false;
