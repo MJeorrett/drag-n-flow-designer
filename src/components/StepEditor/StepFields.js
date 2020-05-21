@@ -1,7 +1,7 @@
 import React from 'react';
 import { Button, List, ListItem } from '@material-ui/core';
 
-import { createNewField } from '../../models';
+import { createNewField, fieldTypes } from '../../models';
 
 const StepFields = ({
   fields,
@@ -16,7 +16,7 @@ const StepFields = ({
         key={field.id}
         onClick={() => setSelectedField(field.id)}
       >
-        {field.label}
+        {field.label} ({field.type ? fieldTypes[field.type] : null})
       </ListItem>
     ))
   );
