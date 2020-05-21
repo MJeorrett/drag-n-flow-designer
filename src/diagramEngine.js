@@ -36,10 +36,71 @@ const handleStartSelect = ({ isSelected }) => {
 }
 
 const handleStartEvent = event => {
-  if (event.function === "selectionChanged") {
+  if (event.function === 'selectionChanged') {
     handleStartSelect(event);
   }
 };
+
+const handleLinkTargetPortChangedEvent = ({ entity: link }) => {
+  const sourceIsStart = link.sourcePort.parent.options.type === 'step-start';
+  let targetStepId;
+
+  if (sourceIsStart) {
+    targetStepId = link.targetPort.parent.options.id;
+    _store.dispatch(actions.steps.setFirstStepId(targetStepId));
+    return;
+  }
+
+  const sourceStepId = link.sourcePort.parent.options.id;
+  const sourcePortType = link.sourcePort.options.type;
+  const targetIsFinish = link.targetPort.parent.options.type === 'step-finish';
+
+  if (targetIsFinish) {
+    switch (sourcePortType) {
+      case 'step-next': {
+        _store.dispatch(actions.steps.setIsFinalStep(sourceStepId, true));
+        break;
+      }
+      case 'step-next-true': {
+        _store.dispatch(actions.branchConditions.setFinishWhenTrue(sourceStepId, true));
+        break;
+      }
+      case 'step-next-false': {
+        _store.dispatch(actions.branchConditions.setFinishWhenFalse(sourceStepId, true));
+        break;
+      }
+      default: {
+        throw new Error(`Unrecognised port type '${sourcePortType}'`)
+      }
+    }
+  }
+  else {
+    targetStepId = link.targetPort.parent.options.id;
+    switch (sourcePortType) {
+      case 'step-next': {
+        _store.dispatch(actions.branchConditions.setNextStepId(sourceStepId, targetStepId));
+        break;
+      }
+      case 'step-next-true': {
+        _store.dispatch(actions.branchConditions.setNextStepIdWhenTrue(sourceStepId, targetStepId));
+        break;
+      }
+      case 'step-next-false': {
+        _store.dispatch(actions.branchConditions.setNextStepIdWhenFalse(sourceStepId, targetStepId));
+        break;
+      }
+      default: {
+        throw new Error(`Unrecognised port type '${sourcePortType}'`)
+      }
+    }
+  }
+};
+
+const handleLinkEvent = event => {
+  if (event.function === 'targetPortChanged') {
+    handleLinkTargetPortChangedEvent(event);
+  }
+}
 
 const addDefaultNodes = () => {
   const start = new StartNode.Model();
@@ -47,9 +108,20 @@ const addDefaultNodes = () => {
     .registerListener({
       eventDidFire: handleStartEvent,
     });
-  start.setPosition(250, 175);
+  start.setPosition(50, 250);
 
   const model = new DiagramModel();
+
+  model.registerListener({
+    linksUpdated: event => {
+      if (event.isCreated) {
+        event.link.registerListener({
+          eventDidFire: handleLinkEvent
+        });
+      }
+    },
+  });
+
   model.addAll(start);
   engine.setModel(model);
 };

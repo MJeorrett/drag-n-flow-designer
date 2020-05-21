@@ -6,7 +6,9 @@ export const stepBranchConditionTypes = {
 export const createNewBranchCondition = () => ({
   type: 'nextStep',
   nextStepId: null,
+  fieldId: null,
   nextStepIdWhenTrue: null,
   nextStepIdWhenFalse: null,
-  fieldId: null,
+  finishWhenTrue: false,
+  finishWhenFalse: false,
 });

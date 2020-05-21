@@ -17,7 +17,22 @@ const slice = createSlice({
     },
     setFieldId: (state, { payload: { stepId, newFieldId } }) => {
       state.items[stepId].fieldId = newFieldId;
-    }
+    },
+    setFinishWhenFalse: (state, { payload: { stepId, newState } }) => {
+      state.items[stepId].finishWhenFalse = newState;
+    },
+    setFinishWhenTrue: (state, { payload: { stepId, newState } }) => {
+      state.items[stepId].finishWhenTrue = newState;
+    },
+    setNextStepId: (state, { payload: { stepId, newNextStepId } }) => {
+      state.items[stepId].nextStepId = newNextStepId;
+    },
+    setNextStepIdWhenFalse: (state, { payload: { stepId, newNextStepId } }) => {
+      state.items[stepId].nextStepIdWhenFalse = newNextStepId;
+    },
+    setNextStepIdWhenTrue: (state, { payload: { stepId, newNextStepId } }) => {
+      state.items[stepId].nextStepIdWhenTrue = newNextStepId;
+    },
   },
   extraReducers: {
     [stepActions.add]: (state, { payload: { step, branchCondition } }) => {
@@ -27,7 +42,7 @@ const slice = createSlice({
     [stepActions.remove]: (state, { payload: { stepId } }) => {
       state.ids = state.ids.filter(id => id !== stepId);
       delete state.items[stepId];
-  },
+    },
   },
 });
 
@@ -43,6 +58,11 @@ export const actions = {
     return slice.actions.setType({ stepId, newType });
   },
   setFieldId: (stepId, newFieldId) => slice.actions.setFieldId({ stepId, newFieldId }),
+  setFinishWhenFalse: (stepId, newState) => slice.actions.setFinishWhenFalse({ stepId, newState }),
+  setFinishWhenTrue: (stepId, newState) => slice.actions.setFinishWhenTrue({ stepId, newState }),
+  setNextStepId: (stepId, newNextStepId) => slice.actions.setNextStepId({ stepId, newNextStepId }),
+  setNextStepIdWhenFalse: (stepId, newNextStepId) => slice.actions.setNextStepIdWhenFalse({ stepId, newNextStepId }),
+  setNextStepIdWhenTrue: (stepId, newNextStepId) => slice.actions.setNextStepIdWhenTrue({ stepId, newNextStepId }),
 };
 
 const selectStepBranchConditionsState = state => state[slice.name];
