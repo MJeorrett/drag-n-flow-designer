@@ -27,6 +27,7 @@ const S = {
 };
 
 const NodeWidgetBase = ({
+  id,
   label,
   color,
   backgroundColor,
@@ -42,7 +43,7 @@ const NodeWidgetBase = ({
       isSelected={isSelected}
       renderDummy={renderDummy}
     >
-      <S.Label labelColor={labelColor}>
+      <S.Label labelColor={labelColor} id={id}>
         {label}
       </S.Label>
       {renderDummy ? null : (

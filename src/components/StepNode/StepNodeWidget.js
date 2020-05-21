@@ -85,6 +85,7 @@ const StepNodeWidget = ({
 }) => {
   return (
     <NodeWidgetBase
+      id={renderDummy ? 'dummy-step' : `step-${step.id}`}
       color="darkblue"
       backgroundColor="white"
       isSelected={isSelected}
