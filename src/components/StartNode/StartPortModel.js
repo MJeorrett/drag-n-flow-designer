@@ -12,13 +12,15 @@ class StartPortModel extends PortModel {
   }
 
   createLinkModel() {
+    const existingLinksCount = Object.keys(this.getLinks()).length;
+
+    if (existingLinksCount > 0) return null;
+
     return new DefaultLinkModel();
   }
 
   canLinkToPort(otherPort) {
-    const existingLinksCount = Object.keys(this.getLinks()).length; // Includes link being created.
-
-    if (existingLinksCount > 1) return false;
+    
 
     return otherPort.options.type === 'step-prev';
   }

@@ -1,4 +1,4 @@
-import { PortModel, DefaultLinkModel, PortModelAlignment } from '@projectstorm/react-diagrams';
+import { PortModel, PortModelAlignment } from '@projectstorm/react-diagrams';
 
 class FinishPortModel extends PortModel {
   constructor() {
@@ -10,15 +10,7 @@ class FinishPortModel extends PortModel {
   }
 
   createLinkModel() {
-    return new DefaultLinkModel();
-  }
-
-  canLinkToPort(otherPort) {
-    const otherType = otherPort.options.type;
-
-    return otherType === 'step-next' ||
-      otherType === 'step-next-true' ||
-      otherType === 'step-next-false';
+    return null;
   }
 }
 

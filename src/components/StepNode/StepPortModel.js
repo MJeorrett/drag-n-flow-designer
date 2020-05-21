@@ -10,23 +10,22 @@ class StepPortModel extends PortModel {
   }
 
   createLinkModel() {
+    if (this.options.type === 'step-prev') {
+      return null;
+    }
+
+    const existingLinksCount = Object.keys(this.getLinks()).length;
+
+    if (existingLinksCount > 0) return null;
+
     return new DefaultLinkModel();
   }
-  
+
   canLinkToPort(otherPort) {
-    const thisType = this.options.type;
     const otherType = otherPort.options.type;
 
-    if (thisType === 'step-prev') {
-      return otherType === 'step-start' ||
-        otherType === 'step-next' ||
-        otherType === 'step-next-true' ||
-        otherType === 'step-next-false';
-    }
-    else {
-      return otherType === 'step-prev' ||
-        otherType === 'step-finish';
-    }
+    return otherType === 'step-prev' ||
+      otherType === 'step-finish';
   }
 }
 
