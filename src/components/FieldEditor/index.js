@@ -1,1 +1,1 @@
-export { default } from './FieldEditorContainer';
+export { default } from './SelectedFieldEditorContainer';

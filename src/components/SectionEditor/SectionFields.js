@@ -3,7 +3,7 @@ import { Button, List, ListItem } from '@material-ui/core';
 
 import { createNewField, fieldTypes } from '../../models';
 
-const StepFields = ({
+const SectionFields = ({
   fields,
   totalFieldsCount,
   addField,
@@ -30,15 +30,17 @@ const StepFields = ({
       <List>
         {renderFields()}
       </List>
-      <Button
-        type="button"
-        variant="contained"
-        onClick={handleAddField}
-      >
-        Add Field
-      </Button>
+      <div>
+        <Button
+          type="button"
+          variant="contained"
+          onClick={handleAddField}
+        >
+          Add Field
+        </Button>
+      </div>
     </>
   );
 };
 
-export default StepFields;
+export default SectionFields;

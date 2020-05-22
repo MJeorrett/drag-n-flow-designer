@@ -29,7 +29,7 @@ export const {
 } = slice;
 
 export const actions = {
-  add: (stepId, field) => slice.actions.add({ stepId, field }),
+  add: (stepId, sectionId, field) => slice.actions.add({ stepId, sectionId, field }),
   setLabel: (fieldId, newLabel) => debounceAction(
     slice.actions.setLabel({ fieldId, newLabel })
   ),

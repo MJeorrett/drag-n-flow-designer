@@ -2,20 +2,20 @@ import { connect } from 'react-redux';
 
 import { actions, selectors } from '../../store';
 
-import StepFields from './StepFields';
+import SectionFields from './SectionFields';
 
 const mapStateToProps = () => {
-  const selectFieldsByStepId = selectors.steps.makeSelectFieldsByStepId();
+  const selectFields = selectors.fields.makeSelectFieldsByIds();
 
-  return (state, { stepId }) => ({
-    fields: selectFieldsByStepId(state, stepId),
-    totalFieldsCount: selectors.fields.count(state),
+  return (state, { fieldIds }) => ({
+    fields: selectFields(state, fieldIds),
+    totalFieldsCount: selectors.fields.count(state, fieldIds),
   });
 };
 
-const mapDispatchToProps = (dispatch, { stepId }) => ({
+const mapDispatchToProps = (dispatch, { stepId, sectionId }) => ({
   addField: newField => {
-    dispatch(actions.fields.add(stepId, newField));
+    dispatch(actions.fields.add(stepId, sectionId, newField));
     dispatch(actions.selection.setSelectedFieldId(newField.id));
     dispatch(actions.selection.setFieldEditorIsOpen(true));
   },
@@ -28,4 +28,4 @@ const mapDispatchToProps = (dispatch, { stepId }) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps,
-)(StepFields);
+)(SectionFields);

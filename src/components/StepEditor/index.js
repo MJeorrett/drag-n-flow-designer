@@ -1,1 +1,1 @@
-export { default } from './StepEditorContainer';
+export { default } from './SelectedStepEditorContainer';

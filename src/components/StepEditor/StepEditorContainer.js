@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { bindActionCreators } from '@reduxjs/toolkit';
 
 import { connect } from 'react-redux';
 
@@ -6,46 +6,25 @@ import { actions, selectors } from '../../store';
 
 import StepEditor from './StepEditor';
 
-const mapPropsToState = state => ({
-  step: selectors.steps.selectedStep(state),
-  fields: selectors.steps.selectedStepFields(state),
-  selectedStepIds: selectors.selection.selectedStepIds(state),
-  branchCondition: selectors.branchConditions.selectedStepBranchCondition(state),
-});
+const mapPropsToState = () => {
+  const selectStepById = selectors.steps.makeSelectStepById();
+  const selectFieldsByStepId = selectors.steps.makeSelectFieldsByStepId();
+  const selectBranchConditionByStepId = selectors.branchConditions.makeSelectByStepId();
 
-const mapDispatchToProps = {
-  setStepTitle: actions.steps.setTitle,
-  setBranchConditionType: actions.branchConditions.setType,
-  setBranchConditionFieldId: actions.branchConditions.setFieldId,
+  return (state, { stepId }) => ({
+    step: selectStepById(state, stepId),
+    fields: selectFieldsByStepId(state, stepId),
+    branchCondition: selectBranchConditionByStepId(state, stepId),
+  });
 };
 
-const StepEditorContainer = ({
-  step,
-  selectedStepIds,
-  ...props
-}) => {
-  const [cachedStep, setCachedStep] = useState({});
-
-  if (selectedStepIds.length !== 1 && cachedStep.id) {
-    setCachedStep({});
-  }
-
-  if (selectedStepIds.length > 1) {
-    return <p>{selectedStepIds.length} steps selected.</p>
-  }
-
-  if (!step) {
-    return <p>Select a step to edit.</p>
-  }
-
-  if (cachedStep.id !== step.id) {
-    setCachedStep(step);
-  }
-
-  return <StepEditor step={cachedStep} {...props} />;
-};
+const mapDispatchToProps = (dispatch, { stepId }) => bindActionCreators({
+  setStepTitle: newTitle => actions.steps.setTitle(stepId, newTitle),
+  setBranchConditionType: newType => actions.branchConditions.setType(stepId, newType),
+  setBranchConditionFieldId: newFieldId => actions.branchConditions.setFieldId(stepId, newFieldId),
+}, dispatch);
 
 export default connect(
   mapPropsToState,
   mapDispatchToProps,
-)(StepEditorContainer);
+)(StepEditor);

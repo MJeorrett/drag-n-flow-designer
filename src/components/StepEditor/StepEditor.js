@@ -8,7 +8,7 @@ import { stepBranchConditionTypes } from '../../models';
 import CustomField from '../CustomField';
 import CustomDropdown from '../CustomDropdown';
 
-import StepFields from './StepFieldsContainer';
+import StepSections from './StepSectionsContainer';
 import StepBranchCondition from './StepBranchConditionContainer';
 
 const S = {
@@ -48,7 +48,7 @@ const StepEditor = ({
       <CustomDropdown
         name="branchConditionFieldId"
         label="Branch Condition Field"
-        reduxAction={value => setBranchConditionFieldId(stepId, value)}
+        reduxAction={setBranchConditionFieldId}
         options={branchConditionFieldOptions}
         error={showError}
         disabled={showError}
@@ -63,18 +63,18 @@ const StepEditor = ({
         <CustomField 
           name="title"
           label="Title"
-          reduxAction={value => setStepTitle(stepId, value)}
+          reduxAction={setStepTitle}
         />
       </Form>
       <S.Section>
-        <Typography variant="h5">Fields</Typography>
-        <StepFields stepId={stepId} />
+        <Typography variant="h5">Sections</Typography>
+        <StepSections stepId={stepId} />
       </S.Section>
       <S.Section>
         <CustomDropdown
           name="branchConditionType"
           label="Branch Condition Type"
-          reduxAction={value => setBranchConditionType(stepId, value)}
+          reduxAction={setBranchConditionType}
           options={Object.keys(stepBranchConditionTypes).map(key => ({
             value: key,
             label: stepBranchConditionTypes[key],

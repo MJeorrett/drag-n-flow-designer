@@ -13,7 +13,7 @@ const mapDispatchToProps = dispatch => ({
   addStep: (step, branchCondition) => {
     dispatch(actions.steps.add(step, branchCondition));
     dispatch(actions.selection.setSelectedFieldId(null));
-    dispatch(actions.selection.setStepEditorIsOpen(step.id));
+    dispatch(actions.selection.setStepEditorIsOpen(true));
   },
   addSelectedStepId: stepId => {
     dispatch(actions.selection.addSelectedStepId(stepId));

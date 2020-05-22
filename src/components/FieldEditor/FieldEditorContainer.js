@@ -1,19 +1,23 @@
 import React, { useState } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from '@reduxjs/toolkit';
 
 import { actions, selectors } from '../../store';
 
 import FieldEditor from './FieldEditor';
 
-const mapStateToProps = state => ({
-  field: selectors.fields.selectedField(state),
-  selectedFieldId: selectors.selection.selectedFieldId(state),
-});
+const mapStateToProps = () => {
+  const selectFieldById = selectors.fields.makeSelectFieldById();
 
-const mapDispatchToProps = {
-  setFieldLabel: actions.fields.setLabel,
-  setFieldType: actions.fields.setType,
-};
+  return (state, { fieldId }) => ({
+    field: selectFieldById(state, fieldId),
+  });
+}
+
+const mapDispatchToProps = (dispatch, { fieldId }) => bindActionCreators({
+  setFieldLabel: newLabel => actions.fields.setLabel(fieldId, newLabel),
+  setFieldType: newType => actions.fields.setType(fieldId, newType),
+}, dispatch);
 
 const FieldEditorContainer = ({
   field,

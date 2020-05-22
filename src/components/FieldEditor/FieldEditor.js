@@ -27,13 +27,13 @@ const FieldEditor = ({
       <CustomField
         name="label"
         label="Label"
-        reduxAction={value => setFieldLabel(fieldId, value)}
+        reduxAction={setFieldLabel}
       />
       <br />
       <CustomDropdown
         name="type"
         label="Type"
-        reduxAction={value => setFieldType(fieldId, value)}
+        reduxAction={setFieldType}
         options={Object.keys(fieldTypes).map(key => ({
           value: key,
           label: fieldTypes[key],
