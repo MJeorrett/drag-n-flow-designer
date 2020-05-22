@@ -9,12 +9,14 @@ const mapStateToProps = () => {
 
   return (state, { stepId }) => ({
     sectionIds: selectSectionIdsByStepId(state, stepId),
-    totalSectionsCount: selectors.sections.totalCount(state),
   });
 };
 
 const mapDispatchToProps = (dispatch, { stepId }) => ({
-  addSection: section => dispatch(actions.sections.add(stepId, section)),
+  addSection: section => {
+    dispatch(actions.sections.add(stepId, section));
+    dispatch(actions.selection.setSelectedSectionId(section.id));
+  },
 });
 
 export default connect(

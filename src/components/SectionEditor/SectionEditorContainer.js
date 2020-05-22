@@ -17,6 +17,7 @@ const mapStateToProps = () => {
 const mapDispatchToProps = (dispatch, { stepId, sectionId }) => bindActionCreators({
   addField: field => actions.fields.add(stepId, sectionId, field),
   setIsExpanded: newState => actions.selection.setSelectedSectionId(newState ? sectionId : null),
+  setTitle: newTitle => actions.sections.setTitle(sectionId, newTitle),
 }, dispatch);
 
 export default connect(

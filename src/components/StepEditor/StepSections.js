@@ -8,16 +8,15 @@ import SectionEditor from '../SectionEditor';
 const StepSections = ({
   stepId,
   sectionIds,
-  totalSectionsCount,
   addSection,
 }) => {
   const handleAddField = () => {
-    addSection(createNewSection(`New Section ${totalSectionsCount + 1}`))
+    addSection(createNewSection(`New Section`))
   };
   return (
     <>
-      {sectionIds.map(sectionId => (
-        <SectionEditor stepId={stepId} sectionId={sectionId} />
+      {sectionIds.map((sectionId, index) => (
+        <SectionEditor stepId={stepId} sectionId={sectionId} index={index} />
       ))}
       <Button
         type="button"
