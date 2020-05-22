@@ -16,7 +16,7 @@ const SectionFields = ({
         key={field.id}
         onClick={() => setSelectedField(field.id)}
       >
-        {field.label} ({field.type ? fieldTypes[field.type] : null})
+        {field.label ? field.label : '<title not set>'} ({field.type ? fieldTypes[field.type] : null})
       </ListItem>
     ))
   );
