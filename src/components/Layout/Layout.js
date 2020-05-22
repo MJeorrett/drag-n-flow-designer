@@ -8,6 +8,9 @@ import GraphEditor from '../GraphEditor';
 import StepEditor from '../StepEditor';
 import FieldEditor from '../FieldEditor';
 
+const stepEditorPaneWidth = '500px';
+const fieldEditorPaneWidth = '400px';
+
 const S = {
   Root: styled.div`
     background: #eeeeee;
@@ -39,12 +42,12 @@ const S = {
     border-right: ${p => p.dropShadow ? 'none' : '1px solid darkgrey'};
     box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(100,100,100,0.51)' : 'none'};
     cursor: ${p => p.isOpen ? 'auto' : 'pointer'};
-    min-width: ${p => (p.isOpen ? "400px" : "50px")};
+    min-width: ${p => (p.isOpen ? stepEditorPaneWidth : "50px")};
     overflow-x: hidden;
     overflow-y: ${p => p.isOpen ? 'scroll' : 'hidden'};
     position: relative;
     transition: all 500ms ease-in-out;
-    width: ${p => (p.isOpen ? "400px" : "50px")};
+    width: ${p => (p.isOpen ? stepEditorPaneWidth : "50px")};
     z-index: ${p => p.zIndex ? p.zIndex : 0};
   `,
   StepEditorTitleContainer: styled.div`
@@ -59,12 +62,12 @@ const S = {
     background: ${p => p.background};
     border-right: ${p => p.isOpen && !p.dropShadow ? '1px solid darkgrey' : 'none'};
     box-shadow: ${p => p.dropShadow ? '5px 0px 5px 0px rgba(0,0,0,0.51)' : 'none'};
-    min-width: ${p => (p.isOpen ? "400px" : "0")};
+    min-width: ${p => (p.isOpen ? fieldEditorPaneWidth : "0")};
     overflow-x: hidden;
     overflow-y: ${p => p.isOpen ? 'scroll' : 'hidden'};
     position: relative;
     transition: all 500ms ease-in-out;
-    width: ${p => (p.isOpen ? "400px" : "0")};
+    width: ${p => (p.isOpen ? fieldEditorPaneWidth : 0)};
     z-index: ${p => p.zIndex ? p.zIndex : 0};
   `,
   FieldEditorTitleContainer: styled.div`
@@ -77,7 +80,7 @@ const S = {
     padding: 2rem;
     padding-top: 0;
     transition: all 500ms ease-in-out;
-    width: 400px;
+    width: ${p => p.isStepEditor ? stepEditorPaneWidth : fieldEditorPaneWidth};
   `,
   GraphEditorWrapper: styled.div`
       position: relative;
@@ -142,7 +145,7 @@ const Layout = ({
               Step
             </Typography>
           </S.StepEditorTitleContainer>
-          <S.EditorWrapper isOpen={stepIsOpen}>
+          <S.EditorWrapper isOpen={stepIsOpen} isStepEditor>
             <StepEditor />
           </S.EditorWrapper>
         </S.StepEditorContainer>

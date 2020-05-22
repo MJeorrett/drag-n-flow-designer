@@ -59,7 +59,7 @@ const StepEditor = ({
 
   return (
     <S.Root>
-      <Form>
+      <Form style={{ width: '100%' }}>
         <CustomField 
           name="title"
           label="Title"
