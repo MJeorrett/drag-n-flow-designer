@@ -1,32 +1,13 @@
 import { createSlice, createSelector } from '@reduxjs/toolkit'
 
-const createSlicePropertyReducer = (key, propertyName) => ({
-  [key]: (state, { payload: newValue }) => {
-    state[propertyName] = newValue;
-  },
-});
-
-const createSlicePropertyAction = key => newValue => (
-  slice.actions[key](newValue)
-);
-
-const createSlicePropertySelector = propertyName => state => state[propertyName];
-
-const createSetPropertySlice = propertyName => {
-  const key = `set-${propertyName}`;
-  return {
-    reducer: createSlicePropertyReducer(key, propertyName),
-    action: createSlicePropertyAction(key),
-    selector: createSlicePropertySelector(propertyName),
-  };
-};
+import createSimplePropertySlice from './utils/simplePropertySlice';
 
 const sliceProperties = {
-  startNodeIsSelected: createSetPropertySlice('startNodeIsSelected'),
-  selectedSectionId: createSetPropertySlice('selectedSectionId'),
-  selectedFieldId: createSetPropertySlice('selectedFieldId'),
-  stepEditorIsOpen: createSetPropertySlice('stepEditorIsOpen'),
-  fieldEditorIsOpen: createSetPropertySlice('fieldEditorIsOpen'),
+  startNodeIsSelected: createSimplePropertySlice('startNodeIsSelected'),
+  selectedSectionId: createSimplePropertySlice('selectedSectionId'),
+  selectedFieldId: createSimplePropertySlice('selectedFieldId'),
+  stepEditorIsOpen: createSimplePropertySlice('stepEditorIsOpen'),
+  fieldEditorIsOpen: createSimplePropertySlice('fieldEditorIsOpen'),
 };
 
 const slice = createSlice({
@@ -73,11 +54,11 @@ export const actions = {
   removeSelectedStepId: stepId => slice.actions.removeSelectedStepId({ stepId }),
   addSelectedFinishNodeId: finishNodeId => slice.actions.addSelectedFinishNodeId({ finishNodeId }),
   removeSelectedFinishNode: finishNodeId => slice.actions.removeSelectedFinishNode({ finishNodeId }),
-  setStartNodeIsSelected: newState => sliceProperties.startNodeIsSelected.action(newState),
-  setSelectedSectionId: sectionId => sliceProperties.selectedSectionId.action(sectionId),
-  setSelectedFieldId: fieldId => sliceProperties.selectedFieldId.action(fieldId),
-  setStepEditorIsOpen: newState => sliceProperties.stepEditorIsOpen.action(newState),
-  setFieldEditorIsOpen: newState => sliceProperties.fieldEditorIsOpen.action(newState),
+  setStartNodeIsSelected: newState => sliceProperties.startNodeIsSelected.action(slice, newState),
+  setSelectedSectionId: sectionId => sliceProperties.selectedSectionId.action(slice, sectionId),
+  setSelectedFieldId: fieldId => sliceProperties.selectedFieldId.action(slice, fieldId),
+  setStepEditorIsOpen: newState => sliceProperties.stepEditorIsOpen.action(slice, newState),
+  setFieldEditorIsOpen: newState => sliceProperties.fieldEditorIsOpen.action(slice, newState),
 };
 
 const createSliceSelector = (...selectors) => createSelector(
