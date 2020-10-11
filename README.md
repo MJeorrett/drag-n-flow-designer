@@ -19,4 +19,4 @@ To get started:
 - Click on "Add Section" then "Add Field" to add a field and a section.
 - Click on the step title or field in a step to edit the details.
 - Click and drag between the ">" on the start and "prev" on a step to form a relationship.
-- Select the "Base on Field" branch condition type to create a fork in the process.
+- Select the "Based on Field" branch condition type to create a fork in the process.
